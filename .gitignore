@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environments
+.venv/
+venv/
+env/
+.conda/
+
+# Experiment outputs
+logs/
+wandb/
+outputs/
+checkpoints/
+*.out
+*.err
+*.log
+*.pth
+*.pt
+*.ckpt
+*.npy
+
+# Datasets and generated embeddings
+data/*
+!data/.gitkeep
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
