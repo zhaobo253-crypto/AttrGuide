@@ -12,7 +12,7 @@
 module purge
 module add nvidia/cuda/12.2
 source ~/.bashrc
-conda activate attrguide-breast
+conda activate attrguide
 
 REPO_ROOT="${REPO_ROOT:-$PWD}"
 DATA_ROOT="${DATA_ROOT:-${REPO_ROOT}/data/breastdata}"
@@ -44,4 +44,3 @@ python train_attrguide.py \
   --save_best_only \
   --num_workers 4 \
   --no_wandb
-

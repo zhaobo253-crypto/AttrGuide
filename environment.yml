@@ -1,4 +1,4 @@
-name: attrguide-breast
+name: attrguide
 channels:
   - pytorch
   - nvidia
@@ -20,4 +20,3 @@ dependencies:
       - ftfy
       - regex
       - git+https://github.com/openai/CLIP.git
-

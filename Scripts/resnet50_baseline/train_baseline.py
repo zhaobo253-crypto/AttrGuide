@@ -245,7 +245,7 @@ def parse_args():
     parser.add_argument("--no_cuda", action="store_true", help="Force CPU")
     parser.add_argument("--use_wandb", action="store_true", default=False, help="Use wandb for experiment tracking")
     parser.add_argument("--no_wandb", dest="use_wandb", action="store_false", help="Disable wandb")
-    parser.add_argument("--wandb_project", type=str, default="AttrGuide-Breast", help="Wandb project name")
+    parser.add_argument("--wandb_project", type=str, default="AttrGuide", help="Wandb project name")
     parser.add_argument("--wandb_name", type=str, default=None, help="Wandb run name (auto-generated if not provided)")
     parser.add_argument("--wandb_offline", action="store_true", help="Force wandb to run in offline mode")
     return parser.parse_args()
