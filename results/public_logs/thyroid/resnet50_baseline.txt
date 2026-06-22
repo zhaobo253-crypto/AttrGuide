@@ -1,0 +1,156 @@
+﻿[BreastDataset] train dataset:
+  - Number of classes: 2
+  - Number of samples: 244
+  - Samples per class:
+    benign: 43
+    malignant: 201
+
+[DataLoader] Using separate val/ directory
+[BreastDataset] val dataset:
+  - Number of classes: 2
+  - Number of samples: 54
+  - Samples per class:
+    benign: 8
+    malignant: 46
+[BreastDataset] test dataset:
+  - Number of classes: 2
+  - Number of samples: 51
+  - Samples per class:
+    benign: 10
+    malignant: 41
+
+[DataLoader] Created data loaders:
+  - Training set (train/): 244 samples
+  - Validation set (val/): 54 samples
+  - Test set (test/): 51 samples
+  - Test set is NOT used in training (data leakage prevention)
+  - Mask images (containing '_mask') are automatically filtered out
+Classes (2): ['benign', 'malignant']
+[ResNet50Baseline] Loading backbone weights: <PRETRAINED_WEIGHT>
+[ResNet50Baseline] Warning missing keys: ['fc.weight', 'fc.bias']...
+[ResNet50Baseline] Backbone weights loaded.
+Epoch 1/100  train loss 0.6151 acc 70.08%  val loss 0.5328 acc 88.89%
+  saved best -> ./checkpoints_thyroid_2cls_baseline/best_model.pth (val acc 88.89%)
+Epoch 2/100  train loss 0.5030 acc 79.17%  val loss 0.5078 acc 88.89%
+Epoch 3/100  train loss 0.4938 acc 77.27%  val loss 0.5159 acc 88.89%
+Epoch 4/100  train loss 0.4043 acc 81.44%  val loss 0.4904 acc 88.89%
+Epoch 5/100  train loss 0.3613 acc 82.95%  val loss 0.4048 acc 88.89%
+Epoch 6/100  train loss 0.3656 acc 81.06%  val loss 0.3491 acc 88.89%
+Epoch 7/100  train loss 0.3579 acc 78.03%  val loss 0.3575 acc 88.89%
+Epoch 8/100  train loss 0.2916 acc 84.47%  val loss 0.3295 acc 88.89%
+Epoch 9/100  train loss 0.2637 acc 87.12%  val loss 0.3444 acc 88.89%
+Epoch 10/100  train loss 0.2519 acc 85.98%  val loss 0.3414 acc 90.28%
+  saved best -> ./checkpoints_thyroid_2cls_baseline/best_model.pth (val acc 90.28%)
+Epoch 11/100  train loss 0.2638 acc 90.91%  val loss 0.3323 acc 88.89%
+Epoch 12/100  train loss 0.2350 acc 88.64%  val loss 0.2866 acc 90.28%
+Epoch 13/100  train loss 0.2311 acc 87.88%  val loss 0.3559 acc 90.28%
+Epoch 14/100  train loss 0.2340 acc 90.53%  val loss 0.3321 acc 87.50%
+Epoch 15/100  train loss 0.1769 acc 92.80%  val loss 0.3368 acc 87.50%
+Epoch 16/100  train loss 0.1969 acc 93.56%  val loss 0.3465 acc 88.89%
+Epoch 17/100  train loss 0.1441 acc 94.70%  val loss 0.3778 acc 83.33%
+Epoch 18/100  train loss 0.1708 acc 93.94%  val loss 0.4570 acc 88.89%
+Epoch 19/100  train loss 0.1345 acc 95.45%  val loss 0.4151 acc 88.89%
+Epoch 20/100  train loss 0.1139 acc 95.08%  val loss 0.4827 acc 86.11%
+Epoch 21/100  train loss 0.0768 acc 96.97%  val loss 0.4111 acc 83.33%
+Epoch 22/100  train loss 0.0801 acc 98.11%  val loss 0.4143 acc 87.50%
+Epoch 23/100  train loss 0.0877 acc 95.08%  val loss 0.5557 acc 88.89%
+Epoch 24/100  train loss 0.0636 acc 96.59%  val loss 0.5288 acc 90.28%
+Epoch 25/100  train loss 0.0861 acc 95.83%  val loss 0.5381 acc 79.17%
+Epoch 26/100  train loss 0.1773 acc 94.70%  val loss 0.6649 acc 80.56%
+Epoch 27/100  train loss 0.1786 acc 89.39%  val loss 0.6478 acc 77.78%
+Epoch 28/100  train loss 0.1054 acc 95.83%  val loss 0.6424 acc 84.72%
+Epoch 29/100  train loss 0.1017 acc 96.21%  val loss 0.5287 acc 84.72%
+Epoch 30/100  train loss 0.0689 acc 97.73%  val loss 0.6175 acc 77.78%
+Epoch 31/100  train loss 0.0705 acc 96.97%  val loss 0.5084 acc 79.17%
+Epoch 32/100  train loss 0.0648 acc 96.59%  val loss 0.5985 acc 77.78%
+Epoch 33/100  train loss 0.0766 acc 98.11%  val loss 0.6393 acc 84.72%
+Epoch 34/100  train loss 0.0625 acc 98.86%  val loss 0.6449 acc 83.33%
+Epoch 35/100  train loss 0.0602 acc 96.97%  val loss 0.6824 acc 84.72%
+Epoch 36/100  train loss 0.0458 acc 97.35%  val loss 0.6467 acc 80.56%
+Epoch 37/100  train loss 0.0279 acc 98.86%  val loss 0.6134 acc 87.50%
+Epoch 38/100  train loss 0.0548 acc 95.83%  val loss 0.6348 acc 87.50%
+Epoch 39/100  train loss 0.2860 acc 90.91%  val loss 0.7544 acc 88.89%
+Epoch 40/100  train loss 0.0886 acc 95.08%  val loss 0.6999 acc 88.89%
+Epoch 41/100  train loss 0.0813 acc 96.21%  val loss 0.6619 acc 86.11%
+Epoch 42/100  train loss 0.0539 acc 98.11%  val loss 0.5489 acc 80.56%
+Epoch 43/100  train loss 0.0479 acc 97.73%  val loss 0.5453 acc 80.56%
+Epoch 44/100  train loss 0.0689 acc 96.59%  val loss 0.5008 acc 79.17%
+Epoch 45/100  train loss 0.0564 acc 98.86%  val loss 0.5523 acc 72.22%
+Epoch 46/100  train loss 0.0525 acc 96.97%  val loss 0.6560 acc 72.22%
+Epoch 47/100  train loss 0.1111 acc 95.83%  val loss 0.5623 acc 76.39%
+Epoch 48/100  train loss 0.0425 acc 97.35%  val loss 0.5901 acc 76.39%
+Epoch 49/100  train loss 0.0866 acc 94.70%  val loss 0.6406 acc 75.00%
+Epoch 50/100  train loss 0.0528 acc 97.35%  val loss 0.7216 acc 75.00%
+Epoch 51/100  train loss 0.0405 acc 97.35%  val loss 0.7531 acc 73.61%
+Epoch 52/100  train loss 0.0447 acc 97.35%  val loss 0.7866 acc 73.61%
+Epoch 53/100  train loss 0.0484 acc 95.45%  val loss 0.8239 acc 73.61%
+Epoch 54/100  train loss 0.0267 acc 98.48%  val loss 0.7152 acc 75.00%
+Epoch 55/100  train loss 0.0227 acc 98.86%  val loss 0.7170 acc 73.61%
+Epoch 56/100  train loss 0.0233 acc 98.48%  val loss 0.7318 acc 75.00%
+Epoch 57/100  train loss 0.0400 acc 97.35%  val loss 0.6705 acc 75.00%
+Epoch 58/100  train loss 0.0213 acc 98.86%  val loss 0.7551 acc 75.00%
+Epoch 59/100  train loss 0.0688 acc 94.70%  val loss 0.7457 acc 73.61%
+Epoch 60/100  train loss 0.0296 acc 98.86%  val loss 0.7946 acc 75.00%
+Epoch 61/100  train loss 0.0264 acc 99.62%  val loss 0.7754 acc 76.39%
+Epoch 62/100  train loss 0.0276 acc 98.11%  val loss 0.7581 acc 76.39%
+Epoch 63/100  train loss 0.0306 acc 97.73%  val loss 0.7633 acc 75.00%
+Epoch 64/100  train loss 0.0407 acc 96.59%  val loss 0.7696 acc 75.00%
+Epoch 65/100  train loss 0.0325 acc 97.35%  val loss 0.7334 acc 76.39%
+Epoch 66/100  train loss 0.0204 acc 98.48%  val loss 0.7183 acc 75.00%
+Epoch 67/100  train loss 0.0872 acc 95.08%  val loss 0.7090 acc 76.39%
+Epoch 68/100  train loss 0.0224 acc 98.11%  val loss 0.7771 acc 76.39%
+Epoch 69/100  train loss 0.0339 acc 97.73%  val loss 0.7964 acc 76.39%
+Epoch 70/100  train loss 0.1123 acc 95.83%  val loss 0.7602 acc 76.39%
+Epoch 71/100  train loss 0.0257 acc 98.48%  val loss 0.6702 acc 75.00%
+Epoch 72/100  train loss 0.0398 acc 96.21%  val loss 0.6540 acc 75.00%
+Epoch 73/100  train loss 0.0274 acc 98.11%  val loss 0.7088 acc 75.00%
+Epoch 74/100  train loss 0.0251 acc 98.86%  val loss 0.6835 acc 75.00%
+Epoch 75/100  train loss 0.0159 acc 99.24%  val loss 0.6666 acc 75.00%
+Epoch 76/100  train loss 0.0683 acc 96.97%  val loss 0.6846 acc 80.56%
+Epoch 77/100  train loss 0.0304 acc 98.11%  val loss 0.7774 acc 80.56%
+Epoch 78/100  train loss 0.0197 acc 98.48%  val loss 0.8299 acc 80.56%
+Epoch 79/100  train loss 0.0501 acc 97.73%  val loss 0.7667 acc 80.56%
+Epoch 80/100  train loss 0.0363 acc 96.59%  val loss 0.8064 acc 73.61%
+Epoch 81/100  train loss 0.0181 acc 98.86%  val loss 0.7233 acc 80.56%
+Epoch 82/100  train loss 0.0164 acc 100.00%  val loss 0.7610 acc 80.56%
+Epoch 83/100  train loss 0.0139 acc 99.62%  val loss 0.7656 acc 75.00%
+Epoch 84/100  train loss 0.0302 acc 98.48%  val loss 0.7945 acc 79.17%
+Epoch 85/100  train loss 0.0382 acc 97.35%  val loss 0.8027 acc 79.17%
+Epoch 86/100  train loss 0.0438 acc 95.45%  val loss 0.7619 acc 79.17%
+Epoch 87/100  train loss 0.0156 acc 98.86%  val loss 0.6552 acc 79.17%
+Epoch 88/100  train loss 0.0206 acc 98.11%  val loss 0.6694 acc 80.56%
+Epoch 89/100  train loss 0.0355 acc 98.11%  val loss 0.7068 acc 75.00%
+Epoch 90/100  train loss 0.0182 acc 99.24%  val loss 0.7366 acc 80.56%
+Epoch 91/100  train loss 0.0268 acc 98.86%  val loss 0.7096 acc 86.11%
+Epoch 92/100  train loss 0.0390 acc 96.59%  val loss 0.7346 acc 80.56%
+Epoch 93/100  train loss 0.0314 acc 97.73%  val loss 0.7575 acc 80.56%
+Epoch 94/100  train loss 0.0201 acc 98.48%  val loss 0.7728 acc 80.56%
+Epoch 95/100  train loss 0.0386 acc 95.83%  val loss 0.8011 acc 80.56%
+Epoch 96/100  train loss 0.0177 acc 99.24%  val loss 0.7505 acc 86.11%
+Epoch 97/100  train loss 0.0195 acc 98.48%  val loss 0.7983 acc 86.11%
+Epoch 98/100  train loss 0.0272 acc 96.97%  val loss 0.7997 acc 86.11%
+Epoch 99/100  train loss 0.0328 acc 95.83%  val loss 0.8333 acc 86.11%
+Epoch 100/100  train loss 0.0274 acc 96.97%  val loss 0.8406 acc 86.11%
+
+Best val acc: 90.28%
+
+=============== Test ===============
+Accuracy: 80.39%
+Per-class (test):
+  benign: 0.00%
+  malignant: 100.00%
+              precision    recall  f1-score   support
+
+           0     0.0000    0.0000    0.0000        10
+           1     0.8039    1.0000    0.8913        41
+
+    accuracy                         0.8039        51
+   macro avg     0.4020    0.5000    0.4457        51
+weighted avg     0.6463    0.8039    0.7165        51
+
+Confusion matrix (rows=true, cols=pred):
+Order: ['benign', 'malignant']
+[[ 0 10]
+ [ 0 41]]
+Thyroid 2-class baseline training completed.
+

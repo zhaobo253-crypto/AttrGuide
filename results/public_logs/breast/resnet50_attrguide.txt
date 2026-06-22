@@ -1,0 +1,674 @@
+﻿==========================================
+Attrguide ResNet50 - ExpC parameter search
+Project: <PROJECT_DIR>
+Task: 1
+lambda_fus=1.0, lambda_reg=0.00, lambda_attr_pred=0.05
+Save dir: <PROJECT_DIR>/checkpoints_breast_3cls_attr_expC_fus_lfus1.0_lreg0.00_lattr0.05
+==========================================
+
+[INFO] Wandb running in offline mode (--wandb_offline specified)
+[INFO] Code and metrics will be saved locally.
+[INFO] To sync later, run: wandb sync <run_directory>
+
+[INFO] Saved code snapshot: train_fetal_attribute_model.py
+[INFO] Saved code snapshot: models/__init__.py
+[INFO] Saved code snapshot: models/FetalAttributeClassifier.py
+[INFO] Saved code snapshot: utils/__init__.py
+[INFO] Saved code snapshot: utils/losses.py
+[INFO] Saved code snapshot: utils/attribute_processor.py
+[INFO] Saved code snapshot: data_utils/FetalDatasetSimple.py
+[INFO] Saved code snapshot: data_utils/__init__.py
+
+[INFO] Run directory: <PROJECT_DIR>/wandb/offline-run-<redacted>/files
+[INFO] All code snapshots saved to: <PROJECT_DIR>/wandb/offline-run-<redacted>/files/code/
+
+
+==========================================
+Train Attribute-Guided Breast Ultrasound Image Classification Model
+Based on TransZero logic
+==========================================
+Backbone: RESNET50
+PyTorch: 1.12.0
+GPU available: True
+GPU device: Tesla V100-SXM2-16GB
+
+Start time: Sun Jun 21 03:19:47 PM  2026
+Wandb run: None
+==========================================
+
+Using device: cuda
+
+=============== Loading Attribute Information ===============
+[AttributeProcessor] Found CSV file at: <PROJECT_DIR>
+[AttributeProcessor] Read CSV with encoding: utf-8-sig, shape=(3, 31)
+[AttributeProcessor] Using 'name' column as class key
+[AttributeProcessor] Found 30 attribute columns: ['attr_1', 'attr_2', 'attr_3', 'attr_4', 'attr_5', 'attr_6', 'attr_7', 'attr_8', 'attr_9', 'attr_10', 'attr_11', 'attr_12', 'attr_13', 'attr_14', 'attr_15', 'attr_16', 'attr_17', 'attr_18', 'attr_19', 'attr_20', 'attr_21', 'attr_22', 'attr_23', 'attr_24', 'attr_25', 'attr_26', 'attr_27', 'attr_28', 'attr_29', 'attr_30']
+[AttributeProcessor] Loaded attributes for 3 classes
+[AttributeProcessor] Total 77 unique attribute words
+
+[INFO] Loading attribute embeddings from: <PROJECT_DIR>
+[INFO] 鉁?Precomputed embeddings file exists
+[INFO] File size: 79595 bytes (77.73 KB)
+[AttributeProcessor] Loading precomputed attribute embeddings from: <PROJECT_DIR>
+[AttributeProcessor] Loaded precomputed embeddings: torch.Size([77, 512])
+
+[VERIFICATION] Attribute embeddings summary:
+  Total sum: 5.7383
+  First 5 values of first attribute: ['-0.0658', '0.0423', '0.0142', '-0.0065', '-0.0346']
+  [INFO] These values will be used in model forward pass
+  [INFO] Embeddings shape: torch.Size([77, 512]) -> will be passed as attrs_matrix to model.forward()
+
+[INFO] Attribute embedding verification:
+  Shape: (77, 512)
+  Statistics:
+    Mean: 0.0001, Std: 0.0442
+    Average L2 norm per vector: 1.0000 (std: 0.0003)
+  鉁?Embeddings are L2-normalized (typical of CLIP embeddings)
+  鉁?Confirmed: Using CLIP-generated embeddings
+
+=============== Loading Dataset ===============
+[BreastDataset] train dataset:
+  - Number of classes: 3
+  - Number of samples: 505
+  - Samples per class:
+    benign: 301
+    malignant: 127
+    normal: 77
+
+[DataLoader] val/ directory not found, splitting train/ into train and val
+[DataLoader] Using 20.0% of train data for validation
+[BreastDataset] train dataset:
+  - Number of classes: 3
+  - Number of samples: 404
+  - Samples per class:
+    benign: 241
+    malignant: 101
+    normal: 62
+[BreastDataset] val dataset:
+  - Number of classes: 3
+  - Number of samples: 101
+  - Samples per class:
+    benign: 60
+    malignant: 26
+    normal: 15
+[DataLoader] Train/Val split statistics:
+  benign: train=241, val=60, total=301
+  malignant: train=101, val=26, total=127
+  normal: train=62, val=15, total=77
+[BreastDataset] test dataset:
+  - Number of classes: 3
+  - Number of samples: 275
+  - Samples per class:
+    benign: 136
+    malignant: 83
+    normal: 56
+
+[DataLoader] Created data loaders:
+  - Training set (from train/, 80.0%): 404 samples
+  - Validation set (from train/, 20.0%): 101 samples
+  - Test set (test/): 275 samples
+  - Test set is NOT used in training (data leakage prevention)
+  - Mask images (containing '_mask') are automatically filtered out
+
+=============== Building Class-Attribute Mapping ===============
+
+Keys in attribute CSV (total 3):
+   1. benign
+   2. malignant
+   3. normal
+
+Building class-to-attribute mapping (total 3 classes in dataset)...
+  [OK] 'benign' -> 'benign'
+  [OK] 'malignant' -> 'malignant'
+  [OK] 'normal' -> 'normal'
+
+============================================================
+Final Mapping Relationship (class_key -> attribute_key):
+Total matched classes: 3
+============================================================
+  [OK] benign          -> benign
+  [OK] malignant       -> malignant
+  [OK] normal          -> normal
+============================================================
+
+[INFO] Using 3 matched classes out of 3 total classes
+Matched classes: ['benign', 'malignant', 'normal']
+[BreastDataset] train dataset:
+  - Number of classes: 3
+  - Number of samples: 505
+  - Samples per class:
+    benign: 301
+    malignant: 127
+    normal: 77
+
+[DataLoader] val/ directory not found, splitting train/ into train and val
+[DataLoader] Using 20.0% of train data for validation
+[BreastDataset] train dataset:
+  - Number of classes: 3
+  - Number of samples: 404
+  - Samples per class:
+    benign: 241
+    malignant: 101
+    normal: 62
+[BreastDataset] val dataset:
+  - Number of classes: 3
+  - Number of samples: 101
+  - Samples per class:
+    benign: 60
+    malignant: 26
+    normal: 15
+[DataLoader] Train/Val split statistics:
+  benign: train=241, val=60, total=301
+  malignant: train=101, val=26, total=127
+  normal: train=62, val=15, total=77
+[BreastDataset] test dataset:
+  - Number of classes: 3
+  - Number of samples: 275
+  - Samples per class:
+    benign: 136
+    malignant: 83
+    normal: 56
+
+[DataLoader] Created data loaders:
+  - Training set (from train/, 80.0%): 404 samples
+  - Validation set (from train/, 20.0%): 101 samples
+  - Test set (test/): 275 samples
+  - Test set is NOT used in training (data leakage prevention)
+  - Mask images (containing '_mask') are automatically filtered out
+
+Final number of classes: 3
+Final class list: ['benign', 'malignant', 'normal']
+
+[AttributeProcessor] Built class-attribute mapping matrix: (3, 77)
+[AttributeProcessor] Non-zero elements in mapping matrix: 87.0
+[AttributeProcessor] 姣忎釜绫诲埆鐨勫睘鎬ф暟閲忛獙璇?
+  - benign: 29 涓睘鎬?  - malignant: 29 涓睘鎬?  - normal: 29 涓睘鎬?
+Class-attribute mapping matrix shape: (3, 77)
+
+=============== Creating Model ===============
+Backbone type: RESNET50
+Backbone feature dimension: 2048 (ResNet)
+[Model] Building RESNET50 backbone...
+[Model] Loading ResNet50 weights: <PRETRAINED_WEIGHT_DIR>
+[Model] Warning: Missing keys when loading weights: ['fc.weight', 'fc.bias']...
+[Model] ResNet50 weights loaded successfully!
+[Model] ResNet50 backbone ready (feature dimension: 2048)
+Model created successfully!
+Total model parameters: 24,825,925
+
+[Training Mode] fus: Both branches will be trained with weighted fusion
+=============== Starting Training ===============
+
+Epoch 1/100:
+  Train - Loss: 1.8664 (Fus:1.0759, Reg:0.3251, AttrPred:0.6892), AttrAcc: 50.50%, ClsAcc: 40.35%, FusAcc: 44.06%, AttrPredAcc: 57.91%
+  Val   - Loss: 1.7400 (Fus:1.0069, Reg:0.3232, AttrPred:0.6861), AttrAcc: 59.41%, ClsAcc: 59.41%, FusAcc: 59.41%, AttrPredAcc: 62.31%
+
+  Saved best model to: <PROJECT_DIR>/checkpoints_breast_3cls_attr_expC_fus_lfus1.0_lreg0.00_lattr0.05/best_model.pth (Val FusAcc: 59.41%)
+
+Epoch 2/100:
+  Train - Loss: 1.6017 (Fus:0.9254, Reg:0.3223, AttrPred:0.6849), AttrAcc: 59.65%, ClsAcc: 59.65%, FusAcc: 59.65%, AttrPredAcc: 60.18%
+  Val   - Loss: 1.5692 (Fus:0.8884, Reg:0.3193, AttrPred:0.6798), AttrAcc: 59.41%, ClsAcc: 59.41%, FusAcc: 59.41%, AttrPredAcc: 60.90%
+
+Epoch 3/100:
+  Train - Loss: 1.4116 (Fus:0.8012, Reg:0.3197, AttrPred:0.6807), AttrAcc: 59.65%, ClsAcc: 61.39%, FusAcc: 59.90%, AttrPredAcc: 60.53%
+  Val   - Loss: 1.4398 (Fus:0.7912, Reg:0.3152, AttrPred:0.6730), AttrAcc: 59.41%, ClsAcc: 65.35%, FusAcc: 59.41%, AttrPredAcc: 61.42%
+
+Epoch 4/100:
+  Train - Loss: 1.2143 (Fus:0.6856, Reg:0.3158, AttrPred:0.6744), AttrAcc: 59.65%, ClsAcc: 70.30%, FusAcc: 64.60%, AttrPredAcc: 61.59%
+  Val   - Loss: 1.4038 (Fus:0.7655, Reg:0.3101, AttrPred:0.6648), AttrAcc: 59.41%, ClsAcc: 69.31%, FusAcc: 66.34%, AttrPredAcc: 62.21%
+
+  Saved best model to: <PROJECT_DIR>/checkpoints_breast_3cls_attr_expC_fus_lfus1.0_lreg0.00_lattr0.05/best_model.pth (Val FusAcc: 66.34%)
+
+Epoch 5/100:
+  Train - Loss: 1.0868 (Fus:0.6045, Reg:0.3100, AttrPred:0.6652), AttrAcc: 66.58%, ClsAcc: 75.74%, FusAcc: 73.27%, AttrPredAcc: 64.42%
+  Val   - Loss: 1.2242 (Fus:0.6621, Reg:0.3000, AttrPred:0.6497), AttrAcc: 73.27%, ClsAcc: 74.26%, FusAcc: 73.27%, AttrPredAcc: 65.69%
+
+  Saved best model to: <PROJECT_DIR>/checkpoints_breast_3cls_attr_expC_fus_lfus1.0_lreg0.00_lattr0.05/best_model.pth (Val FusAcc: 73.27%)
+
+Epoch 6/100:
+  Train - Loss: 0.8199 (Fus:0.4427, Reg:0.3010, AttrPred:0.6528), AttrAcc: 86.14%, ClsAcc: 83.42%, FusAcc: 85.64%, AttrPredAcc: 68.34%
+  Val   - Loss: 1.0901 (Fus:0.5803, Reg:0.2925, AttrPred:0.6400), AttrAcc: 81.19%, ClsAcc: 75.25%, FusAcc: 78.22%, AttrPredAcc: 66.67%
+
+  Saved best model to: <PROJECT_DIR>/checkpoints_breast_3cls_attr_expC_fus_lfus1.0_lreg0.00_lattr0.05/best_model.pth (Val FusAcc: 78.22%)
+
+Epoch 7/100:
+  Train - Loss: 0.6480 (Fus:0.3396, Reg:0.2934, AttrPred:0.6416), AttrAcc: 89.85%, ClsAcc: 88.37%, FusAcc: 90.59%, AttrPredAcc: 70.41%
+  Val   - Loss: 1.0675 (Fus:0.5833, Reg:0.2828, AttrPred:0.6241), AttrAcc: 79.21%, ClsAcc: 77.23%, FusAcc: 78.22%, AttrPredAcc: 69.06%
+
+Epoch 8/100:
+  Train - Loss: 0.5293 (Fus:0.2709, Reg:0.2846, AttrPred:0.6278), AttrAcc: 91.09%, ClsAcc: 91.83%, FusAcc: 91.83%, AttrPredAcc: 72.15%
+  Val   - Loss: 1.2639 (Fus:0.6803, Reg:0.2786, AttrPred:0.6182), AttrAcc: 81.19%, ClsAcc: 78.22%, FusAcc: 79.21%, AttrPredAcc: 68.64%
+
+  Saved best model to: <PROJECT_DIR>/checkpoints_breast_3cls_attr_expC_fus_lfus1.0_lreg0.00_lattr0.05/best_model.pth (Val FusAcc: 79.21%)
+
+Epoch 9/100:
+  Train - Loss: 0.4011 (Fus:0.1984, Reg:0.2800, AttrPred:0.6209), AttrAcc: 94.80%, ClsAcc: 93.81%, FusAcc: 94.06%, AttrPredAcc: 73.06%
+  Val   - Loss: 1.1109 (Fus:0.6107, Reg:0.2742, AttrPred:0.6111), AttrAcc: 82.18%, ClsAcc: 82.18%, FusAcc: 82.18%, AttrPredAcc: 70.66%
+
+  Saved best model to: <PROJECT_DIR>/checkpoints_breast_3cls_attr_expC_fus_lfus1.0_lreg0.00_lattr0.05/best_model.pth (Val FusAcc: 82.18%)
+
+Epoch 10/100:
+  Train - Loss: 0.3840 (Fus:0.1905, Reg:0.2745, AttrPred:0.6123), AttrAcc: 93.56%, ClsAcc: 94.31%, FusAcc: 93.81%, AttrPredAcc: 76.28%
+  Val   - Loss: 1.4311 (Fus:0.8067, Reg:0.2746, AttrPred:0.6113), AttrAcc: 76.24%, ClsAcc: 78.22%, FusAcc: 76.24%, AttrPredAcc: 71.62%
+
+Epoch 11/100:
+  Train - Loss: 0.3165 (Fus:0.1503, Reg:0.2712, AttrPred:0.6076), AttrAcc: 95.30%, ClsAcc: 95.30%, FusAcc: 95.30%, AttrPredAcc: 76.70%
+  Val   - Loss: 1.2567 (Fus:0.6981, Reg:0.2664, AttrPred:0.5986), AttrAcc: 81.19%, ClsAcc: 81.19%, FusAcc: 81.19%, AttrPredAcc: 73.20%
+
+Epoch 12/100:
+  Train - Loss: 0.3029 (Fus:0.1436, Reg:0.2673, AttrPred:0.6013), AttrAcc: 94.80%, ClsAcc: 95.54%, FusAcc: 94.80%, AttrPredAcc: 78.46%
+  Val   - Loss: 1.1879 (Fus:0.6579, Reg:0.2628, AttrPred:0.5932), AttrAcc: 83.17%, ClsAcc: 84.16%, FusAcc: 84.16%, AttrPredAcc: 74.94%
+
+  Saved best model to: <PROJECT_DIR>/checkpoints_breast_3cls_attr_expC_fus_lfus1.0_lreg0.00_lattr0.05/best_model.pth (Val FusAcc: 84.16%)
+
+Epoch 13/100:
+  Train - Loss: 0.2659 (Fus:0.1239, Reg:0.2634, AttrPred:0.5952), AttrAcc: 95.79%, ClsAcc: 95.30%, FusAcc: 95.79%, AttrPredAcc: 80.18%
+  Val   - Loss: 1.1286 (Fus:0.6356, Reg:0.2634, AttrPred:0.5946), AttrAcc: 81.19%, ClsAcc: 80.20%, FusAcc: 80.20%, AttrPredAcc: 74.22%
+
+Epoch 14/100:
+  Train - Loss: 0.2884 (Fus:0.1381, Reg:0.2634, AttrPred:0.5954), AttrAcc: 95.05%, ClsAcc: 95.30%, FusAcc: 95.30%, AttrPredAcc: 79.53%
+  Val   - Loss: 1.4692 (Fus:0.8308, Reg:0.2641, AttrPred:0.5945), AttrAcc: 79.21%, ClsAcc: 80.20%, FusAcc: 80.20%, AttrPredAcc: 73.77%
+
+Epoch 15/100:
+  Train - Loss: 0.2099 (Fus:0.0917, Reg:0.2585, AttrPred:0.5879), AttrAcc: 96.78%, ClsAcc: 97.28%, FusAcc: 97.52%, AttrPredAcc: 81.58%
+  Val   - Loss: 1.3526 (Fus:0.7810, Reg:0.2615, AttrPred:0.5906), AttrAcc: 74.26%, ClsAcc: 75.25%, FusAcc: 75.25%, AttrPredAcc: 74.54%
+
+Epoch 16/100:
+  Train - Loss: 0.1792 (Fus:0.0746, Reg:0.2546, AttrPred:0.5818), AttrAcc: 97.52%, ClsAcc: 97.77%, FusAcc: 97.77%, AttrPredAcc: 83.13%
+  Val   - Loss: 1.2402 (Fus:0.7048, Reg:0.2559, AttrPred:0.5831), AttrAcc: 80.20%, ClsAcc: 81.19%, FusAcc: 80.20%, AttrPredAcc: 75.83%
+
+Epoch 17/100:
+  Train - Loss: 0.1908 (Fus:0.0821, Reg:0.2535, AttrPred:0.5801), AttrAcc: 97.52%, ClsAcc: 97.52%, FusAcc: 97.52%, AttrPredAcc: 83.06%
+  Val   - Loss: 1.5019 (Fus:0.8559, Reg:0.2539, AttrPred:0.5787), AttrAcc: 78.22%, ClsAcc: 79.21%, FusAcc: 78.22%, AttrPredAcc: 77.09%
+
+Epoch 18/100:
+  Train - Loss: 0.1887 (Fus:0.0823, Reg:0.2513, AttrPred:0.5768), AttrAcc: 96.78%, ClsAcc: 97.77%, FusAcc: 97.52%, AttrPredAcc: 85.11%
+  Val   - Loss: 1.5341 (Fus:0.8687, Reg:0.2500, AttrPred:0.5734), AttrAcc: 82.18%, ClsAcc: 82.18%, FusAcc: 82.18%, AttrPredAcc: 78.40%
+
+Epoch 19/100:
+  Train - Loss: 0.2006 (Fus:0.0888, Reg:0.2490, AttrPred:0.5733), AttrAcc: 96.78%, ClsAcc: 97.52%, FusAcc: 97.52%, AttrPredAcc: 85.96%
+  Val   - Loss: 1.2496 (Fus:0.7223, Reg:0.2506, AttrPred:0.5735), AttrAcc: 81.19%, ClsAcc: 81.19%, FusAcc: 82.18%, AttrPredAcc: 77.70%
+
+Epoch 20/100:
+  Train - Loss: 0.1626 (Fus:0.0664, Reg:0.2484, AttrPred:0.5723), AttrAcc: 98.02%, ClsAcc: 97.77%, FusAcc: 97.77%, AttrPredAcc: 85.63%
+  Val   - Loss: 0.9380 (Fus:0.5476, Reg:0.2456, AttrPred:0.5665), AttrAcc: 82.18%, ClsAcc: 83.17%, FusAcc: 82.18%, AttrPredAcc: 78.96%
+
+Epoch 21/100:
+  Train - Loss: 0.1251 (Fus:0.0455, Reg:0.2445, AttrPred:0.5662), AttrAcc: 98.76%, ClsAcc: 98.76%, FusAcc: 98.76%, AttrPredAcc: 86.82%
+  Val   - Loss: 1.2074 (Fus:0.7081, Reg:0.2439, AttrPred:0.5637), AttrAcc: 84.16%, ClsAcc: 84.16%, FusAcc: 84.16%, AttrPredAcc: 80.08%
+
+Epoch 22/100:
+  Train - Loss: 0.1002 (Fus:0.0310, Reg:0.2425, AttrPred:0.5632), AttrAcc: 99.50%, ClsAcc: 99.26%, FusAcc: 99.50%, AttrPredAcc: 87.32%
+  Val   - Loss: 1.2149 (Fus:0.7178, Reg:0.2443, AttrPred:0.5640), AttrAcc: 83.17%, ClsAcc: 83.17%, FusAcc: 83.17%, AttrPredAcc: 78.84%
+
+Epoch 23/100:
+  Train - Loss: 0.1045 (Fus:0.0351, Reg:0.2411, AttrPred:0.5611), AttrAcc: 99.01%, ClsAcc: 99.01%, FusAcc: 99.01%, AttrPredAcc: 87.08%
+  Val   - Loss: 1.3600 (Fus:0.7945, Reg:0.2427, AttrPred:0.5618), AttrAcc: 81.19%, ClsAcc: 82.18%, FusAcc: 82.18%, AttrPredAcc: 79.44%
+
+Epoch 24/100:
+  Train - Loss: 0.1128 (Fus:0.0395, Reg:0.2392, AttrPred:0.5580), AttrAcc: 98.51%, ClsAcc: 98.51%, FusAcc: 98.51%, AttrPredAcc: 87.86%
+  Val   - Loss: 1.7002 (Fus:0.9830, Reg:0.2439, AttrPred:0.5636), AttrAcc: 79.21%, ClsAcc: 78.22%, FusAcc: 79.21%, AttrPredAcc: 78.85%
+
+Epoch 25/100:
+  Train - Loss: 0.0884 (Fus:0.0256, Reg:0.2406, AttrPred:0.5603), AttrAcc: 99.50%, ClsAcc: 99.75%, FusAcc: 99.75%, AttrPredAcc: 86.13%
+  Val   - Loss: 1.6922 (Fus:0.9757, Reg:0.2429, AttrPred:0.5620), AttrAcc: 81.19%, ClsAcc: 81.19%, FusAcc: 81.19%, AttrPredAcc: 78.41%
+
+Epoch 26/100:
+  Train - Loss: 0.1467 (Fus:0.0615, Reg:0.2416, AttrPred:0.5619), AttrAcc: 97.52%, ClsAcc: 97.52%, FusAcc: 97.52%, AttrPredAcc: 86.33%
+  Val   - Loss: 1.7940 (Fus:1.0279, Reg:0.2434, AttrPred:0.5629), AttrAcc: 82.18%, ClsAcc: 83.17%, FusAcc: 82.18%, AttrPredAcc: 78.42%
+
+Epoch 27/100:
+  Train - Loss: 0.1537 (Fus:0.0646, Reg:0.2398, AttrPred:0.5589), AttrAcc: 98.02%, ClsAcc: 97.77%, FusAcc: 98.02%, AttrPredAcc: 87.16%
+  Val   - Loss: 1.6337 (Fus:0.9460, Reg:0.2454, AttrPred:0.5662), AttrAcc: 82.18%, ClsAcc: 82.18%, FusAcc: 82.18%, AttrPredAcc: 78.33%
+
+Epoch 28/100:
+  Train - Loss: 0.1286 (Fus:0.0505, Reg:0.2398, AttrPred:0.5590), AttrAcc: 98.02%, ClsAcc: 98.02%, FusAcc: 98.02%, AttrPredAcc: 86.81%
+  Val   - Loss: 1.5682 (Fus:0.9065, Reg:0.2412, AttrPred:0.5592), AttrAcc: 84.16%, ClsAcc: 84.16%, FusAcc: 84.16%, AttrPredAcc: 79.03%
+
+Epoch 29/100:
+  Train - Loss: 0.1121 (Fus:0.0405, Reg:0.2381, AttrPred:0.5563), AttrAcc: 99.01%, ClsAcc: 98.27%, FusAcc: 98.51%, AttrPredAcc: 87.06%
+  Val   - Loss: 1.3934 (Fus:0.8235, Reg:0.2404, AttrPred:0.5579), AttrAcc: 82.18%, ClsAcc: 83.17%, FusAcc: 82.18%, AttrPredAcc: 79.90%
+
+Epoch 30/100:
+  Train - Loss: 0.1369 (Fus:0.0552, Reg:0.2363, AttrPred:0.5536), AttrAcc: 98.02%, ClsAcc: 98.27%, FusAcc: 98.02%, AttrPredAcc: 87.68%
+  Val   - Loss: 1.4227 (Fus:0.8386, Reg:0.2463, AttrPred:0.5678), AttrAcc: 79.21%, ClsAcc: 79.21%, FusAcc: 79.21%, AttrPredAcc: 76.97%
+
+Epoch 31/100:
+  Train - Loss: 0.1266 (Fus:0.0493, Reg:0.2381, AttrPred:0.5565), AttrAcc: 98.51%, ClsAcc: 98.51%, FusAcc: 98.27%, AttrPredAcc: 87.76%
+  Val   - Loss: 1.3408 (Fus:0.7980, Reg:0.2381, AttrPred:0.5539), AttrAcc: 82.18%, ClsAcc: 83.17%, FusAcc: 83.17%, AttrPredAcc: 79.18%
+
+Epoch 32/100:
+  Train - Loss: 0.1503 (Fus:0.0631, Reg:0.2372, AttrPred:0.5549), AttrAcc: 97.28%, ClsAcc: 97.77%, FusAcc: 97.77%, AttrPredAcc: 87.40%
+  Val   - Loss: 1.1342 (Fus:0.6802, Reg:0.2372, AttrPred:0.5524), AttrAcc: 82.18%, ClsAcc: 82.18%, FusAcc: 81.19%, AttrPredAcc: 78.72%
+
+Epoch 33/100:
+  Train - Loss: 0.1613 (Fus:0.0692, Reg:0.2386, AttrPred:0.5571), AttrAcc: 97.28%, ClsAcc: 97.77%, FusAcc: 97.52%, AttrPredAcc: 87.42%
+  Val   - Loss: 1.3570 (Fus:0.8028, Reg:0.2383, AttrPred:0.5552), AttrAcc: 84.16%, ClsAcc: 84.16%, FusAcc: 84.16%, AttrPredAcc: 81.23%
+
+Epoch 34/100:
+  Train - Loss: 0.1482 (Fus:0.0629, Reg:0.2363, AttrPred:0.5534), AttrAcc: 97.77%, ClsAcc: 97.03%, FusAcc: 97.77%, AttrPredAcc: 86.92%
+  Val   - Loss: 1.8771 (Fus:1.1060, Reg:0.2433, AttrPred:0.5616), AttrAcc: 79.21%, ClsAcc: 80.20%, FusAcc: 80.20%, AttrPredAcc: 78.68%
+
+Epoch 35/100:
+  Train - Loss: 0.0868 (Fus:0.0259, Reg:0.2327, AttrPred:0.5481), AttrAcc: 99.26%, ClsAcc: 99.26%, FusAcc: 99.50%, AttrPredAcc: 89.62%
+  Val   - Loss: 1.5702 (Fus:0.9188, Reg:0.2386, AttrPred:0.5554), AttrAcc: 80.20%, ClsAcc: 80.20%, FusAcc: 80.20%, AttrPredAcc: 81.05%
+
+Epoch 36/100:
+  Train - Loss: 0.1136 (Fus:0.0426, Reg:0.2339, AttrPred:0.5501), AttrAcc: 98.51%, ClsAcc: 98.27%, FusAcc: 98.51%, AttrPredAcc: 89.19%
+  Val   - Loss: 1.1150 (Fus:0.6622, Reg:0.2321, AttrPred:0.5453), AttrAcc: 85.15%, ClsAcc: 85.15%, FusAcc: 85.15%, AttrPredAcc: 82.45%
+
+  Saved best model to: <PROJECT_DIR>/checkpoints_breast_3cls_attr_expC_fus_lfus1.0_lreg0.00_lattr0.05/best_model.pth (Val FusAcc: 85.15%)
+
+Epoch 37/100:
+  Train - Loss: 0.0839 (Fus:0.0250, Reg:0.2317, AttrPred:0.5464), AttrAcc: 98.76%, ClsAcc: 99.01%, FusAcc: 99.01%, AttrPredAcc: 87.84%
+  Val   - Loss: 1.1672 (Fus:0.6979, Reg:0.2319, AttrPred:0.5444), AttrAcc: 86.14%, ClsAcc: 86.14%, FusAcc: 86.14%, AttrPredAcc: 80.66%
+
+  Saved best model to: <PROJECT_DIR>/checkpoints_breast_3cls_attr_expC_fus_lfus1.0_lreg0.00_lattr0.05/best_model.pth (Val FusAcc: 86.14%)
+
+Epoch 38/100:
+  Train - Loss: 0.0926 (Fus:0.0299, Reg:0.2307, AttrPred:0.5450), AttrAcc: 98.76%, ClsAcc: 99.26%, FusAcc: 98.76%, AttrPredAcc: 88.87%
+  Val   - Loss: 1.3397 (Fus:0.7919, Reg:0.2334, AttrPred:0.5472), AttrAcc: 84.16%, ClsAcc: 85.15%, FusAcc: 84.16%, AttrPredAcc: 81.83%
+
+Epoch 39/100:
+  Train - Loss: 0.0934 (Fus:0.0309, Reg:0.2314, AttrPred:0.5459), AttrAcc: 99.01%, ClsAcc: 99.26%, FusAcc: 99.01%, AttrPredAcc: 88.26%
+  Val   - Loss: 1.5476 (Fus:0.9173, Reg:0.2361, AttrPred:0.5510), AttrAcc: 82.18%, ClsAcc: 82.18%, FusAcc: 81.19%, AttrPredAcc: 80.48%
+
+Epoch 40/100:
+  Train - Loss: 0.0848 (Fus:0.0259, Reg:0.2302, AttrPred:0.5441), AttrAcc: 98.51%, ClsAcc: 98.76%, FusAcc: 98.51%, AttrPredAcc: 89.46%
+  Val   - Loss: 1.4686 (Fus:0.8669, Reg:0.2348, AttrPred:0.5493), AttrAcc: 82.18%, ClsAcc: 82.18%, FusAcc: 82.18%, AttrPredAcc: 81.65%
+
+Epoch 41/100:
+  Train - Loss: 0.0763 (Fus:0.0211, Reg:0.2298, AttrPred:0.5435), AttrAcc: 99.26%, ClsAcc: 99.01%, FusAcc: 99.26%, AttrPredAcc: 89.52%
+  Val   - Loss: 1.3761 (Fus:0.8176, Reg:0.2324, AttrPred:0.5454), AttrAcc: 83.17%, ClsAcc: 84.16%, FusAcc: 83.17%, AttrPredAcc: 80.31%
+
+Epoch 42/100:
+  Train - Loss: 0.0776 (Fus:0.0216, Reg:0.2301, AttrPred:0.5439), AttrAcc: 99.26%, ClsAcc: 99.01%, FusAcc: 99.01%, AttrPredAcc: 87.62%
+  Val   - Loss: 1.4735 (Fus:0.8716, Reg:0.2317, AttrPred:0.5444), AttrAcc: 83.17%, ClsAcc: 84.16%, FusAcc: 83.17%, AttrPredAcc: 81.56%
+
+Epoch 43/100:
+  Train - Loss: 0.0828 (Fus:0.0258, Reg:0.2283, AttrPred:0.5412), AttrAcc: 98.51%, ClsAcc: 98.51%, FusAcc: 98.51%, AttrPredAcc: 89.61%
+  Val   - Loss: 1.5974 (Fus:0.9332, Reg:0.2323, AttrPred:0.5451), AttrAcc: 84.16%, ClsAcc: 83.17%, FusAcc: 84.16%, AttrPredAcc: 81.59%
+
+Epoch 44/100:
+  Train - Loss: 0.0708 (Fus:0.0182, Reg:0.2283, AttrPred:0.5412), AttrAcc: 99.26%, ClsAcc: 99.26%, FusAcc: 99.26%, AttrPredAcc: 88.99%
+  Val   - Loss: 1.5058 (Fus:0.8899, Reg:0.2308, AttrPred:0.5429), AttrAcc: 84.16%, ClsAcc: 85.15%, FusAcc: 85.15%, AttrPredAcc: 81.70%
+
+Epoch 45/100:
+  Train - Loss: 0.0960 (Fus:0.0331, Reg:0.2286, AttrPred:0.5417), AttrAcc: 99.01%, ClsAcc: 99.01%, FusAcc: 99.01%, AttrPredAcc: 89.51%
+  Val   - Loss: 1.4320 (Fus:0.8541, Reg:0.2324, AttrPred:0.5453), AttrAcc: 82.18%, ClsAcc: 83.17%, FusAcc: 82.18%, AttrPredAcc: 80.34%
+
+Epoch 46/100:
+  Train - Loss: 0.0805 (Fus:0.0241, Reg:0.2293, AttrPred:0.5428), AttrAcc: 99.01%, ClsAcc: 98.76%, FusAcc: 99.01%, AttrPredAcc: 88.54%
+  Val   - Loss: 1.3829 (Fus:0.8300, Reg:0.2328, AttrPred:0.5460), AttrAcc: 81.19%, ClsAcc: 81.19%, FusAcc: 81.19%, AttrPredAcc: 80.62%
+
+Epoch 47/100:
+  Train - Loss: 0.0754 (Fus:0.0210, Reg:0.2284, AttrPred:0.5413), AttrAcc: 99.26%, ClsAcc: 99.26%, FusAcc: 99.26%, AttrPredAcc: 89.58%
+  Val   - Loss: 1.4143 (Fus:0.8475, Reg:0.2328, AttrPred:0.5459), AttrAcc: 81.19%, ClsAcc: 81.19%, FusAcc: 81.19%, AttrPredAcc: 80.11%
+
+Epoch 48/100:
+  Train - Loss: 0.0732 (Fus:0.0196, Reg:0.2277, AttrPred:0.5402), AttrAcc: 99.26%, ClsAcc: 99.26%, FusAcc: 99.26%, AttrPredAcc: 89.36%
+  Val   - Loss: 1.3044 (Fus:0.7843, Reg:0.2301, AttrPred:0.5418), AttrAcc: 83.17%, ClsAcc: 83.17%, FusAcc: 83.17%, AttrPredAcc: 81.84%
+
+Epoch 49/100:
+  Train - Loss: 0.0618 (Fus:0.0129, Reg:0.2269, AttrPred:0.5389), AttrAcc: 99.26%, ClsAcc: 99.50%, FusAcc: 99.26%, AttrPredAcc: 89.48%
+  Val   - Loss: 1.3066 (Fus:0.7896, Reg:0.2302, AttrPred:0.5417), AttrAcc: 82.18%, ClsAcc: 82.18%, FusAcc: 82.18%, AttrPredAcc: 80.87%
+
+Epoch 50/100:
+  Train - Loss: 0.0873 (Fus:0.0282, Reg:0.2271, AttrPred:0.5393), AttrAcc: 99.26%, ClsAcc: 98.51%, FusAcc: 99.01%, AttrPredAcc: 89.42%
+  Val   - Loss: 1.2531 (Fus:0.7615, Reg:0.2294, AttrPred:0.5404), AttrAcc: 82.18%, ClsAcc: 82.18%, FusAcc: 82.18%, AttrPredAcc: 80.57%
+
+Epoch 51/100:
+  Train - Loss: 0.0754 (Fus:0.0217, Reg:0.2260, AttrPred:0.5376), AttrAcc: 99.01%, ClsAcc: 99.26%, FusAcc: 99.26%, AttrPredAcc: 89.34%
+  Val   - Loss: 1.2947 (Fus:0.7861, Reg:0.2295, AttrPred:0.5408), AttrAcc: 82.18%, ClsAcc: 82.18%, FusAcc: 82.18%, AttrPredAcc: 81.63%
+
+Epoch 52/100:
+  Train - Loss: 0.0735 (Fus:0.0199, Reg:0.2261, AttrPred:0.5378), AttrAcc: 99.26%, ClsAcc: 99.01%, FusAcc: 99.26%, AttrPredAcc: 89.24%
+  Val   - Loss: 1.4215 (Fus:0.8564, Reg:0.2310, AttrPred:0.5431), AttrAcc: 84.16%, ClsAcc: 83.17%, FusAcc: 84.16%, AttrPredAcc: 81.25%
+
+Epoch 53/100:
+  Train - Loss: 0.0737 (Fus:0.0201, Reg:0.2267, AttrPred:0.5387), AttrAcc: 99.50%, ClsAcc: 99.50%, FusAcc: 99.50%, AttrPredAcc: 89.87%
+  Val   - Loss: 1.2794 (Fus:0.7770, Reg:0.2305, AttrPred:0.5424), AttrAcc: 83.17%, ClsAcc: 83.17%, FusAcc: 83.17%, AttrPredAcc: 81.42%
+
+Epoch 54/100:
+  Train - Loss: 0.0715 (Fus:0.0192, Reg:0.2255, AttrPred:0.5368), AttrAcc: 99.01%, ClsAcc: 99.01%, FusAcc: 99.01%, AttrPredAcc: 89.91%
+  Val   - Loss: 1.3894 (Fus:0.8421, Reg:0.2305, AttrPred:0.5424), AttrAcc: 84.16%, ClsAcc: 83.17%, FusAcc: 84.16%, AttrPredAcc: 81.43%
+
+Epoch 55/100:
+  Train - Loss: 0.0597 (Fus:0.0123, Reg:0.2246, AttrPred:0.5354), AttrAcc: 99.75%, ClsAcc: 99.75%, FusAcc: 99.75%, AttrPredAcc: 89.90%
+  Val   - Loss: 1.3882 (Fus:0.8407, Reg:0.2302, AttrPred:0.5418), AttrAcc: 83.17%, ClsAcc: 83.17%, FusAcc: 83.17%, AttrPredAcc: 81.16%
+
+Epoch 56/100:
+  Train - Loss: 0.0632 (Fus:0.0146, Reg:0.2248, AttrPred:0.5356), AttrAcc: 99.50%, ClsAcc: 99.50%, FusAcc: 99.50%, AttrPredAcc: 89.00%
+  Val   - Loss: 1.4368 (Fus:0.8669, Reg:0.2301, AttrPred:0.5415), AttrAcc: 84.16%, ClsAcc: 83.17%, FusAcc: 83.17%, AttrPredAcc: 80.04%
+
+Epoch 57/100:
+  Train - Loss: 0.0744 (Fus:0.0204, Reg:0.2253, AttrPred:0.5366), AttrAcc: 99.50%, ClsAcc: 99.26%, FusAcc: 99.50%, AttrPredAcc: 90.12%
+  Val   - Loss: 1.4161 (Fus:0.8540, Reg:0.2298, AttrPred:0.5412), AttrAcc: 83.17%, ClsAcc: 83.17%, FusAcc: 83.17%, AttrPredAcc: 81.39%
+
+Epoch 58/100:
+  Train - Loss: 0.0817 (Fus:0.0254, Reg:0.2261, AttrPred:0.5376), AttrAcc: 99.01%, ClsAcc: 99.01%, FusAcc: 99.01%, AttrPredAcc: 88.62%
+  Val   - Loss: 1.3634 (Fus:0.8098, Reg:0.2298, AttrPred:0.5408), AttrAcc: 83.17%, ClsAcc: 82.18%, FusAcc: 82.18%, AttrPredAcc: 79.85%
+
+Epoch 59/100:
+  Train - Loss: 0.0669 (Fus:0.0164, Reg:0.2250, AttrPred:0.5361), AttrAcc: 99.26%, ClsAcc: 99.26%, FusAcc: 99.26%, AttrPredAcc: 90.80%
+  Val   - Loss: 1.3846 (Fus:0.8303, Reg:0.2299, AttrPred:0.5411), AttrAcc: 81.19%, ClsAcc: 80.20%, FusAcc: 81.19%, AttrPredAcc: 81.10%
+
+Epoch 60/100:
+  Train - Loss: 0.0860 (Fus:0.0279, Reg:0.2258, AttrPred:0.5371), AttrAcc: 99.01%, ClsAcc: 99.26%, FusAcc: 99.26%, AttrPredAcc: 88.35%
+  Val   - Loss: 1.4087 (Fus:0.8454, Reg:0.2307, AttrPred:0.5424), AttrAcc: 84.16%, ClsAcc: 83.17%, FusAcc: 83.17%, AttrPredAcc: 80.49%
+
+Epoch 61/100:
+  Train - Loss: 0.1233 (Fus:0.0498, Reg:0.2282, AttrPred:0.5412), AttrAcc: 98.51%, ClsAcc: 98.02%, FusAcc: 98.51%, AttrPredAcc: 91.38%
+  Val   - Loss: 1.2873 (Fus:0.7733, Reg:0.2296, AttrPred:0.5412), AttrAcc: 83.17%, ClsAcc: 83.17%, FusAcc: 83.17%, AttrPredAcc: 81.96%
+
+Epoch 62/100:
+  Train - Loss: 0.0741 (Fus:0.0201, Reg:0.2273, AttrPred:0.5396), AttrAcc: 99.26%, ClsAcc: 99.26%, FusAcc: 99.26%, AttrPredAcc: 88.36%
+  Val   - Loss: 1.3512 (Fus:0.8165, Reg:0.2313, AttrPred:0.5434), AttrAcc: 82.18%, ClsAcc: 82.18%, FusAcc: 82.18%, AttrPredAcc: 80.89%
+
+Epoch 63/100:
+  Train - Loss: 0.0617 (Fus:0.0128, Reg:0.2247, AttrPred:0.5357), AttrAcc: 99.75%, ClsAcc: 99.75%, FusAcc: 99.75%, AttrPredAcc: 91.29%
+  Val   - Loss: 1.4938 (Fus:0.9002, Reg:0.2340, AttrPred:0.5479), AttrAcc: 79.21%, ClsAcc: 79.21%, FusAcc: 79.21%, AttrPredAcc: 80.78%
+
+Epoch 64/100:
+  Train - Loss: 0.0691 (Fus:0.0179, Reg:0.2242, AttrPred:0.5347), AttrAcc: 99.26%, ClsAcc: 99.26%, FusAcc: 99.26%, AttrPredAcc: 90.17%
+  Val   - Loss: 1.5835 (Fus:0.9547, Reg:0.2342, AttrPred:0.5476), AttrAcc: 80.20%, ClsAcc: 79.21%, FusAcc: 79.21%, AttrPredAcc: 79.77%
+
+Epoch 65/100:
+  Train - Loss: 0.0952 (Fus:0.0338, Reg:0.2258, AttrPred:0.5372), AttrAcc: 98.02%, ClsAcc: 97.77%, FusAcc: 98.27%, AttrPredAcc: 88.98%
+  Val   - Loss: 1.6059 (Fus:0.9630, Reg:0.2347, AttrPred:0.5491), AttrAcc: 81.19%, ClsAcc: 79.21%, FusAcc: 81.19%, AttrPredAcc: 80.44%
+
+Epoch 66/100:
+  Train - Loss: 0.0626 (Fus:0.0133, Reg:0.2246, AttrPred:0.5357), AttrAcc: 99.50%, ClsAcc: 99.50%, FusAcc: 99.50%, AttrPredAcc: 92.25%
+  Val   - Loss: 1.4830 (Fus:0.9009, Reg:0.2340, AttrPred:0.5481), AttrAcc: 78.22%, ClsAcc: 79.21%, FusAcc: 79.21%, AttrPredAcc: 80.42%
+
+Epoch 67/100:
+  Train - Loss: 0.0650 (Fus:0.0158, Reg:0.2231, AttrPred:0.5330), AttrAcc: 99.50%, ClsAcc: 99.01%, FusAcc: 99.01%, AttrPredAcc: 90.10%
+  Val   - Loss: 1.4841 (Fus:0.9013, Reg:0.2355, AttrPred:0.5498), AttrAcc: 78.22%, ClsAcc: 78.22%, FusAcc: 78.22%, AttrPredAcc: 78.14%
+
+Epoch 68/100:
+  Train - Loss: 0.0630 (Fus:0.0146, Reg:0.2231, AttrPred:0.5329), AttrAcc: 99.01%, ClsAcc: 99.26%, FusAcc: 99.01%, AttrPredAcc: 89.49%
+  Val   - Loss: 1.4956 (Fus:0.9096, Reg:0.2340, AttrPred:0.5476), AttrAcc: 80.20%, ClsAcc: 79.21%, FusAcc: 80.20%, AttrPredAcc: 79.43%
+
+Epoch 69/100:
+  Train - Loss: 0.0599 (Fus:0.0125, Reg:0.2222, AttrPred:0.5317), AttrAcc: 100.00%, ClsAcc: 99.75%, FusAcc: 99.75%, AttrPredAcc: 91.21%
+  Val   - Loss: 1.4846 (Fus:0.9048, Reg:0.2321, AttrPred:0.5448), AttrAcc: 78.22%, ClsAcc: 78.22%, FusAcc: 78.22%, AttrPredAcc: 80.31%
+
+Epoch 70/100:
+  Train - Loss: 0.0672 (Fus:0.0173, Reg:0.2223, AttrPred:0.5317), AttrAcc: 99.01%, ClsAcc: 99.26%, FusAcc: 99.01%, AttrPredAcc: 90.72%
+  Val   - Loss: 1.5334 (Fus:0.9314, Reg:0.2339, AttrPred:0.5475), AttrAcc: 81.19%, ClsAcc: 80.20%, FusAcc: 80.20%, AttrPredAcc: 79.41%
+
+Epoch 71/100:
+  Train - Loss: 0.0789 (Fus:0.0244, Reg:0.2224, AttrPred:0.5319), AttrAcc: 99.26%, ClsAcc: 99.26%, FusAcc: 99.26%, AttrPredAcc: 90.49%
+  Val   - Loss: 1.6097 (Fus:0.9741, Reg:0.2349, AttrPred:0.5488), AttrAcc: 82.18%, ClsAcc: 79.21%, FusAcc: 80.20%, AttrPredAcc: 79.16%
+
+Epoch 72/100:
+  Train - Loss: 0.0658 (Fus:0.0163, Reg:0.2234, AttrPred:0.5334), AttrAcc: 99.26%, ClsAcc: 99.50%, FusAcc: 99.50%, AttrPredAcc: 89.39%
+  Val   - Loss: 1.6410 (Fus:0.9913, Reg:0.2347, AttrPred:0.5484), AttrAcc: 81.19%, ClsAcc: 81.19%, FusAcc: 81.19%, AttrPredAcc: 79.62%
+
+Epoch 73/100:
+  Train - Loss: 0.0534 (Fus:0.0090, Reg:0.2209, AttrPred:0.5297), AttrAcc: 100.00%, ClsAcc: 100.00%, FusAcc: 100.00%, AttrPredAcc: 91.33%
+  Val   - Loss: 1.6094 (Fus:0.9749, Reg:0.2338, AttrPred:0.5473), AttrAcc: 80.20%, ClsAcc: 79.21%, FusAcc: 80.20%, AttrPredAcc: 80.19%
+
+Epoch 74/100:
+  Train - Loss: 0.0563 (Fus:0.0108, Reg:0.2212, AttrPred:0.5301), AttrAcc: 99.50%, ClsAcc: 99.50%, FusAcc: 99.50%, AttrPredAcc: 90.72%
+  Val   - Loss: 1.6172 (Fus:0.9788, Reg:0.2337, AttrPred:0.5471), AttrAcc: 81.19%, ClsAcc: 80.20%, FusAcc: 81.19%, AttrPredAcc: 80.08%
+
+Epoch 75/100:
+  Train - Loss: 0.0608 (Fus:0.0137, Reg:0.2207, AttrPred:0.5293), AttrAcc: 99.26%, ClsAcc: 99.26%, FusAcc: 99.50%, AttrPredAcc: 91.23%
+  Val   - Loss: 1.6071 (Fus:0.9702, Reg:0.2320, AttrPred:0.5445), AttrAcc: 82.18%, ClsAcc: 80.20%, FusAcc: 82.18%, AttrPredAcc: 80.40%
+
+Epoch 76/100:
+  Train - Loss: 0.0627 (Fus:0.0146, Reg:0.2211, AttrPred:0.5300), AttrAcc: 99.75%, ClsAcc: 99.75%, FusAcc: 99.75%, AttrPredAcc: 90.98%
+  Val   - Loss: 1.6428 (Fus:0.9918, Reg:0.2332, AttrPred:0.5463), AttrAcc: 81.19%, ClsAcc: 79.21%, FusAcc: 81.19%, AttrPredAcc: 79.62%
+
+Epoch 77/100:
+  Train - Loss: 0.0665 (Fus:0.0171, Reg:0.2213, AttrPred:0.5301), AttrAcc: 99.50%, ClsAcc: 99.26%, FusAcc: 99.50%, AttrPredAcc: 90.39%
+  Val   - Loss: 1.6652 (Fus:1.0057, Reg:0.2337, AttrPred:0.5471), AttrAcc: 81.19%, ClsAcc: 81.19%, FusAcc: 81.19%, AttrPredAcc: 80.46%
+
+Epoch 78/100:
+  Train - Loss: 0.0622 (Fus:0.0147, Reg:0.2211, AttrPred:0.5299), AttrAcc: 99.26%, ClsAcc: 99.50%, FusAcc: 99.26%, AttrPredAcc: 91.06%
+  Val   - Loss: 1.6262 (Fus:0.9825, Reg:0.2321, AttrPred:0.5448), AttrAcc: 81.19%, ClsAcc: 80.20%, FusAcc: 80.20%, AttrPredAcc: 80.94%
+
+Epoch 79/100:
+  Train - Loss: 0.0526 (Fus:0.0083, Reg:0.2204, AttrPred:0.5290), AttrAcc: 100.00%, ClsAcc: 100.00%, FusAcc: 100.00%, AttrPredAcc: 92.28%
+  Val   - Loss: 1.5790 (Fus:0.9562, Reg:0.2303, AttrPred:0.5421), AttrAcc: 81.19%, ClsAcc: 79.21%, FusAcc: 80.20%, AttrPredAcc: 81.23%
+
+Epoch 80/100:
+  Train - Loss: 0.0546 (Fus:0.0097, Reg:0.2204, AttrPred:0.5288), AttrAcc: 100.00%, ClsAcc: 99.50%, FusAcc: 99.50%, AttrPredAcc: 90.69%
+  Val   - Loss: 1.6160 (Fus:0.9800, Reg:0.2316, AttrPred:0.5438), AttrAcc: 81.19%, ClsAcc: 79.21%, FusAcc: 79.21%, AttrPredAcc: 79.54%
+
+Epoch 81/100:
+  Train - Loss: 0.0617 (Fus:0.0144, Reg:0.2209, AttrPred:0.5296), AttrAcc: 99.26%, ClsAcc: 99.01%, FusAcc: 99.26%, AttrPredAcc: 90.78%
+  Val   - Loss: 1.6394 (Fus:0.9929, Reg:0.2313, AttrPred:0.5435), AttrAcc: 80.20%, ClsAcc: 80.20%, FusAcc: 80.20%, AttrPredAcc: 80.60%
+
+Epoch 82/100:
+  Train - Loss: 0.0673 (Fus:0.0181, Reg:0.2218, AttrPred:0.5310), AttrAcc: 99.01%, ClsAcc: 99.01%, FusAcc: 99.01%, AttrPredAcc: 90.65%
+  Val   - Loss: 1.6206 (Fus:0.9817, Reg:0.2311, AttrPred:0.5433), AttrAcc: 79.21%, ClsAcc: 79.21%, FusAcc: 79.21%, AttrPredAcc: 80.73%
+
+Epoch 83/100:
+  Train - Loss: 0.0603 (Fus:0.0135, Reg:0.2206, AttrPred:0.5292), AttrAcc: 99.50%, ClsAcc: 99.50%, FusAcc: 99.50%, AttrPredAcc: 90.83%
+  Val   - Loss: 1.6390 (Fus:0.9905, Reg:0.2300, AttrPred:0.5414), AttrAcc: 80.20%, ClsAcc: 79.21%, FusAcc: 80.20%, AttrPredAcc: 80.83%
+
+Epoch 84/100:
+  Train - Loss: 0.0556 (Fus:0.0106, Reg:0.2208, AttrPred:0.5295), AttrAcc: 99.50%, ClsAcc: 99.75%, FusAcc: 99.75%, AttrPredAcc: 90.25%
+  Val   - Loss: 1.7033 (Fus:1.0258, Reg:0.2312, AttrPred:0.5431), AttrAcc: 80.20%, ClsAcc: 79.21%, FusAcc: 79.21%, AttrPredAcc: 79.45%
+
+Epoch 85/100:
+  Train - Loss: 0.0661 (Fus:0.0171, Reg:0.2207, AttrPred:0.5292), AttrAcc: 99.26%, ClsAcc: 99.26%, FusAcc: 99.26%, AttrPredAcc: 90.18%
+  Val   - Loss: 1.6966 (Fus:1.0205, Reg:0.2305, AttrPred:0.5422), AttrAcc: 81.19%, ClsAcc: 80.20%, FusAcc: 80.20%, AttrPredAcc: 81.14%
+
+Epoch 86/100:
+  Train - Loss: 0.0569 (Fus:0.0115, Reg:0.2199, AttrPred:0.5281), AttrAcc: 99.50%, ClsAcc: 99.50%, FusAcc: 99.50%, AttrPredAcc: 92.05%
+  Val   - Loss: 1.6723 (Fus:1.0095, Reg:0.2296, AttrPred:0.5411), AttrAcc: 82.18%, ClsAcc: 80.20%, FusAcc: 81.19%, AttrPredAcc: 81.54%
+
+Epoch 87/100:
+  Train - Loss: 0.0664 (Fus:0.0169, Reg:0.2204, AttrPred:0.5288), AttrAcc: 99.26%, ClsAcc: 99.26%, FusAcc: 99.26%, AttrPredAcc: 91.06%
+  Val   - Loss: 1.6234 (Fus:0.9849, Reg:0.2300, AttrPred:0.5413), AttrAcc: 82.18%, ClsAcc: 82.18%, FusAcc: 82.18%, AttrPredAcc: 80.47%
+
+Epoch 88/100:
+  Train - Loss: 0.0572 (Fus:0.0117, Reg:0.2201, AttrPred:0.5284), AttrAcc: 99.50%, ClsAcc: 99.50%, FusAcc: 99.50%, AttrPredAcc: 90.46%
+  Val   - Loss: 1.6344 (Fus:0.9852, Reg:0.2279, AttrPred:0.5381), AttrAcc: 82.18%, ClsAcc: 82.18%, FusAcc: 82.18%, AttrPredAcc: 81.50%
+
+Epoch 89/100:
+  Train - Loss: 0.0680 (Fus:0.0182, Reg:0.2203, AttrPred:0.5286), AttrAcc: 98.76%, ClsAcc: 98.76%, FusAcc: 98.76%, AttrPredAcc: 91.18%
+  Val   - Loss: 1.7409 (Fus:1.0422, Reg:0.2280, AttrPred:0.5381), AttrAcc: 81.19%, ClsAcc: 81.19%, FusAcc: 81.19%, AttrPredAcc: 81.23%
+
+Epoch 90/100:
+  Train - Loss: 0.0664 (Fus:0.0170, Reg:0.2203, AttrPred:0.5287), AttrAcc: 99.01%, ClsAcc: 99.26%, FusAcc: 99.01%, AttrPredAcc: 91.26%
+  Val   - Loss: 1.6483 (Fus:0.9891, Reg:0.2277, AttrPred:0.5379), AttrAcc: 82.18%, ClsAcc: 81.19%, FusAcc: 81.19%, AttrPredAcc: 81.43%
+
+Epoch 91/100:
+  Train - Loss: 0.0544 (Fus:0.0101, Reg:0.2196, AttrPred:0.5276), AttrAcc: 99.50%, ClsAcc: 99.50%, FusAcc: 99.50%, AttrPredAcc: 91.73%
+  Val   - Loss: 1.6172 (Fus:0.9757, Reg:0.2272, AttrPred:0.5369), AttrAcc: 82.18%, ClsAcc: 81.19%, FusAcc: 81.19%, AttrPredAcc: 81.54%
+
+Epoch 92/100:
+  Train - Loss: 0.0721 (Fus:0.0211, Reg:0.2197, AttrPred:0.5277), AttrAcc: 98.51%, ClsAcc: 99.01%, FusAcc: 98.76%, AttrPredAcc: 91.95%
+  Val   - Loss: 1.5305 (Fus:0.9281, Reg:0.2275, AttrPred:0.5376), AttrAcc: 81.19%, ClsAcc: 82.18%, FusAcc: 81.19%, AttrPredAcc: 81.81%
+
+Epoch 93/100:
+  Train - Loss: 0.0631 (Fus:0.0151, Reg:0.2213, AttrPred:0.5302), AttrAcc: 99.26%, ClsAcc: 99.50%, FusAcc: 99.50%, AttrPredAcc: 89.58%
+  Val   - Loss: 1.6424 (Fus:0.9888, Reg:0.2306, AttrPred:0.5419), AttrAcc: 82.18%, ClsAcc: 82.18%, FusAcc: 82.18%, AttrPredAcc: 79.81%
+
+Epoch 94/100:
+  Train - Loss: 0.0534 (Fus:0.0094, Reg:0.2192, AttrPred:0.5270), AttrAcc: 99.50%, ClsAcc: 99.75%, FusAcc: 99.75%, AttrPredAcc: 90.43%
+  Val   - Loss: 1.6390 (Fus:0.9887, Reg:0.2297, AttrPred:0.5409), AttrAcc: 81.19%, ClsAcc: 82.18%, FusAcc: 81.19%, AttrPredAcc: 81.66%
+
+Epoch 95/100:
+  Train - Loss: 0.0561 (Fus:0.0113, Reg:0.2184, AttrPred:0.5258), AttrAcc: 99.26%, ClsAcc: 99.01%, FusAcc: 99.01%, AttrPredAcc: 92.35%
+  Val   - Loss: 1.6586 (Fus:0.9998, Reg:0.2299, AttrPred:0.5413), AttrAcc: 81.19%, ClsAcc: 80.20%, FusAcc: 80.20%, AttrPredAcc: 81.63%
+
+Epoch 96/100:
+  Train - Loss: 0.0705 (Fus:0.0197, Reg:0.2196, AttrPred:0.5276), AttrAcc: 98.76%, ClsAcc: 98.76%, FusAcc: 98.76%, AttrPredAcc: 92.07%
+  Val   - Loss: 1.7186 (Fus:1.0296, Reg:0.2300, AttrPred:0.5414), AttrAcc: 82.18%, ClsAcc: 79.21%, FusAcc: 82.18%, AttrPredAcc: 81.92%
+
+Epoch 97/100:
+  Train - Loss: 0.0557 (Fus:0.0109, Reg:0.2193, AttrPred:0.5273), AttrAcc: 99.50%, ClsAcc: 99.50%, FusAcc: 99.50%, AttrPredAcc: 92.51%
+  Val   - Loss: 1.6261 (Fus:0.9792, Reg:0.2284, AttrPred:0.5389), AttrAcc: 82.18%, ClsAcc: 81.19%, FusAcc: 82.18%, AttrPredAcc: 81.29%
+
+Epoch 98/100:
+  Train - Loss: 0.0553 (Fus:0.0107, Reg:0.2192, AttrPred:0.5270), AttrAcc: 99.50%, ClsAcc: 99.50%, FusAcc: 99.50%, AttrPredAcc: 91.03%
+  Val   - Loss: 1.6924 (Fus:1.0165, Reg:0.2292, AttrPred:0.5400), AttrAcc: 82.18%, ClsAcc: 82.18%, FusAcc: 82.18%, AttrPredAcc: 81.01%
+
+Epoch 99/100:
+  Train - Loss: 0.0713 (Fus:0.0202, Reg:0.2196, AttrPred:0.5275), AttrAcc: 99.50%, ClsAcc: 99.26%, FusAcc: 99.26%, AttrPredAcc: 91.26%
+  Val   - Loss: 1.6735 (Fus:1.0093, Reg:0.2303, AttrPred:0.5418), AttrAcc: 82.18%, ClsAcc: 82.18%, FusAcc: 82.18%, AttrPredAcc: 81.34%
+
+Epoch 100/100:
+  Train - Loss: 0.0591 (Fus:0.0130, Reg:0.2190, AttrPred:0.5266), AttrAcc: 99.50%, ClsAcc: 99.50%, FusAcc: 99.75%, AttrPredAcc: 91.18%
+  Val   - Loss: 1.6795 (Fus:1.0132, Reg:0.2289, AttrPred:0.5395), AttrAcc: 82.18%, ClsAcc: 82.18%, FusAcc: 82.18%, AttrPredAcc: 81.15%
+
+
+Training completed! Best validation accuracy: 86.14%
+
+=============== Final Testing ===============
+Loaded best model: <PROJECT_DIR>/checkpoints_breast_3cls_attr_expC_fus_lfus1.0_lreg0.00_lattr0.05/best_model.pth (Epoch 37, Val Acc: 86.14%)
+
+=============== Test Results ===============
+Training Mode: fus
+Overall classification accuracy:
+  (3) Fus:  83.27%
+
+Attribute prediction accuracy:
+  (3) Fus:  79.31%
+
+Per-class accuracy ((3) Fus classification):
+  benign: 93.38%
+  malignant: 79.52%
+  normal: 64.29%
+
+Classification Report (Fused predictions):
+              precision    recall  f1-score   support
+
+           0     0.7987    0.9338    0.8610       136
+           1     0.8800    0.7952    0.8354        83
+           2     0.8780    0.6429    0.7423        56
+
+    accuracy                         0.8327       275
+   macro avg     0.8523    0.7906    0.8129       275
+weighted avg     0.8394    0.8327    0.8291       275
+
+
+Confusion Matrix (Fused predictions):
+Rows=true class, Columns=predicted class
+Class order: ['benign', 'malignant', 'normal']
+[[127   4   5]
+ [ 17  66   0]
+ [ 15   5  36]]
+
+==========================================
+Training completed!
+End time: Sun Jun 21 03:30:33 PM  2026
+==========================================
+
+[INFO] Attempting to save output files for SLURM job ID: <redacted>
+[INFO] Saving output files to: <PROJECT_DIR>/wandb/offline-run-<redacted>/files
+[WARNING] Output file not found: breast_attr_<jobid>.out
+  Checked path: <PROJECT_DIR>/breast_attr_<jobid>.out
+  Current working directory: <PROJECT_DIR>
+[WARNING] Output file not found: breast_attr_<jobid>.err
+  Checked path: <PROJECT_DIR>/breast_attr_<jobid>.err
+  Current working directory: <PROJECT_DIR>
+[WARNING] No output files were saved (files may not exist or job ID mismatch)
+[INFO] Wandb run finished.
+ExpC completed: lfus1.0_lreg0.00_lattr0.05
+

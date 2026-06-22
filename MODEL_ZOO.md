@@ -34,6 +34,8 @@ For a public paper-code release, we recommend:
 - Provide checksums for released weights when possible.
 - For private datasets, release only trained weights and anonymized visualization examples when permitted.
 
+Sanitized public logs are tracked in `results/public_logs/`. Raw logs should not be committed directly.
+
 ## Release Checklist
 
 Update this table after uploading the files.
@@ -45,8 +47,16 @@ Update this table after uploading the files.
 | `attribute_embeddings_3cls_breast.pt` | CLIP-encoded breast attribute embeddings | TBD |
 | `resnet50_attrguide_best.pth` | Trained BUSI ResNet50+AttrGuide checkpoint | TBD |
 | `vitbase_attrguide_best.pth` | Trained BUSI ViT-B+AttrGuide checkpoint | TBD |
-| `thyroid_resnet50_attrguide_best.pth` | Trained thyroid ResNet50+AttrGuide checkpoint, if releasable | TBD |
-| `thyroid_vitbase_attrguide_best.pth` | Trained thyroid ViT-B+AttrGuide checkpoint, if releasable | TBD |
+| `thyroid_resnet50_attrguide_best.pth` | Trained thyroid ResNet50+AttrGuide checkpoint, if generated and releasable | Not released; logs only |
+| `thyroid_vitbase_attrguide_best.pth` | Trained thyroid ViT-B+AttrGuide checkpoint, if generated and releasable | Not released; logs only |
+
+Current release status:
+
+| Dataset | Logs | Checkpoints |
+| --- | --- | --- |
+| BUSI breast | Sanitized logs in `results/public_logs/breast/` | Available locally; release separately because files are large |
+| DDTI thyroid | Sanitized logs in `results/public_logs/thyroid/` | Not included |
+| Private fetal ultrasound | Not included | Not included |
 
 ## Integrity
 

@@ -53,7 +53,7 @@ Ultrasound image classification is essential for computer-aided diagnosis, but u
 
 **AttrGuide** is a plug-and-play attribute-guided dual-branch framework for ultrasound classification. It keeps the original image classifier as a baseline branch, injects domain-agnostic medical attributes through an additional semantic branch, and adaptively fuses the two predictions. The goal is to improve both classification performance and interpretability without requiring dense pixel-level attribute annotations.
 
-This repository provides the public implementation for BUSI breast ultrasound classification with ResNet50 and ViT-B backbones, including baseline trainers, AttrGuide trainers, attribute embedding generation, example attribute tables, and release notes for large files. Private fetal and thyroid ultrasound datasets described in the paper are not redistributed.
+This repository provides the public implementation for BUSI breast ultrasound classification with ResNet50 and ViT-B backbones, including baseline trainers, AttrGuide trainers, attribute embedding generation, example attribute tables, sanitized public result logs, and release notes for large files. Private fetal ultrasound data described in the paper is not redistributed.
 
 ## Motivation
 
@@ -112,6 +112,8 @@ The environment uses PyTorch, TorchVision, scikit-learn, pandas, OpenAI CLIP, an
 
 ### Data Preparation
 
+#### BUSI Breast Ultrasound
+
 Download the public BUSI dataset from its official source or a community mirror:
 
 - Official BUSI dataset page: <https://scholar.cu.edu.eg/?q=afahmy/pages/dataset>
@@ -145,6 +147,29 @@ cp examples/attributes_breast.csv data/attributes_breast.csv
 
 The table should contain a `name` or `folder` column matching the folder names and one or more attribute columns.
 
+#### DDTI Thyroid Ultrasound
+
+The thyroid experiments use the public DDTI thyroid ultrasound dataset:
+
+- Kaggle DDTI dataset: <https://www.kaggle.com/datasets/dasmehdixtr/ddti-thyroid-ultrasound-images?resource=download>
+
+Arrange the processed thyroid images with the same folder convention:
+
+```text
+data/thyroid/
+|-- train/
+|   |-- benign/
+|   `-- malignant/
+|-- val/
+|   |-- benign/
+|   `-- malignant/
+`-- test/
+    |-- benign/
+    `-- malignant/
+```
+
+The thyroid code follows the same AttrGuide method as the breast experiments; only the dataset, class list, and attribute table change.
+
 ### Generate Attribute Embeddings
 
 Run this step once before training AttrGuide:
@@ -160,6 +185,18 @@ python generate_attribute_embeddings.py \
 ```
 
 The generated embedding file can be reused by both ResNet50 and ViT-B AttrGuide experiments.
+
+For thyroid experiments, prepare a two-class attribute table such as `data/attributes_thyroid.csv`, then generate thyroid attribute embeddings with the same utility:
+
+```bash
+cd Scripts/vitbase_attrguide
+python generate_attribute_embeddings.py \
+  --attr_csv ../../data/attributes_thyroid.csv \
+  --output_path ../../data/attribute_embeddings_2cls_thyroid.pt \
+  --clip_model ViT-B/32 \
+  --prompt_template "an ultrasound image showing {attr}" \
+  --overwrite
+```
 
 ### Run Experiments
 
@@ -215,6 +252,23 @@ python train_baseline.py \
   --no_wandb
 ```
 
+Run a thyroid ViT-B AttrGuide experiment by switching the dataset and attribute files:
+
+```bash
+cd Scripts/vitbase_attrguide
+python train_attrguide.py \
+  --data_root ../../data/thyroid \
+  --attr_csv ../../data/attributes_thyroid.csv \
+  --precomputed_attr_emb ../../data/attribute_embeddings_2cls_thyroid.pt \
+  --backbone vitbase \
+  --resnet_path ../../checkpoints/pretrained/vit_b_16-c867db91.pth \
+  --epochs 100 \
+  --batch_size 32 \
+  --lr 0.0001 \
+  --save_dir ../../checkpoints/thyroid_vitbase_attrguide \
+  --no_wandb
+```
+
 ## Main Results
 
 AttrGuide consistently improves ultrasound classification across backbone families, recent methods, and disease categories.
@@ -259,7 +313,18 @@ AttrGuide consistently improves ultrasound classification across backbone famili
 | Fetal ultrasound | 92.8 | **94.9** | +2.1 |
 | Thyroid ultrasound | 82.4 | **86.1** | +3.8 |
 
-Private fetal and thyroid datasets are not included in this repository. The public release focuses on the BUSI protocol and documents aggregate private-data results reported in the paper.
+Private fetal datasets are not included in this repository. The public release focuses on BUSI and DDTI thyroid public protocols, and documents aggregate private-data results reported in the paper.
+
+## Public Logs
+
+Sanitized training logs are provided under [results/public_logs](results/public_logs):
+
+| Dataset | Baseline logs | AttrGuide logs |
+| --- | --- | --- |
+| BUSI breast | `resnet50_baseline.txt`, `vitbase_baseline.txt` | `resnet50_attrguide.txt`, `vitbase_attrguide.txt` |
+| DDTI thyroid | `resnet50_baseline.txt`, `vitbase_baseline.txt` | `resnet50_attrguide.txt`, `vitbase_attrguide.txt` |
+
+Server paths, usernames, scratch directories, and offline WandB identifiers have been removed from the released logs. Breast checkpoints should be released separately; thyroid experiments currently provide logs only.
 
 ## Additional Analysis
 
@@ -300,6 +365,7 @@ AttrGuide/
 |-- assets/readme/              # README figures
 |-- examples/                   # Public attribute table template
 |-- visualizations/             # Optional anonymized CAM/attribute examples
+|-- results/public_logs/        # Sanitized public training logs
 |-- data/                       # User-prepared datasets and generated embeddings
 |-- checkpoints/                # Local pretrained weights and trained models
 |-- MODEL_ZOO.md                # Large-file release checklist

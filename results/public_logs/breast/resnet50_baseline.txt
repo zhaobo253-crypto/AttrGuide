@@ -1,0 +1,552 @@
+﻿==========================================
+Baseline ResNet50 - ExpC: 杞绘鍒?灏廱atch (lr=0.0001, wd=5e-4, dropout=0.15, batch=24)
+==========================================
+
+==========================================
+Train Baseline Breast Ultrasound Image Classification Model
+ResNet50 only, no attribute guidance
+==========================================
+Backbone: RESNET50
+PyTorch: 1.12.0
+GPU available: True
+GPU device: Tesla V100-SXM2-16GB
+
+Start time: Mon Feb 02 12:01:35 PM  2026
+Wandb run: None
+==========================================
+
+Using device: cuda
+
+=============== Loading Dataset ===============
+[BreastDataset] train dataset:
+  - Number of classes: 3
+  - Number of samples: 505
+  - Samples per class:
+    benign: 301
+    malignant: 127
+    normal: 77
+
+[DataLoader] val/ directory not found, splitting train/ into train and val
+[DataLoader] Using 20.0% of train data for validation
+[BreastDataset] train dataset:
+  - Number of classes: 3
+  - Number of samples: 404
+  - Samples per class:
+    benign: 241
+    malignant: 101
+    normal: 62
+[BreastDataset] val dataset:
+  - Number of classes: 3
+  - Number of samples: 101
+  - Samples per class:
+    benign: 60
+    malignant: 26
+    normal: 15
+[DataLoader] Train/Val split statistics:
+  benign: train=241, val=60, total=301
+  malignant: train=101, val=26, total=127
+  normal: train=62, val=15, total=77
+[BreastDataset] test dataset:
+  - Number of classes: 3
+  - Number of samples: 275
+  - Samples per class:
+    benign: 136
+    malignant: 83
+    normal: 56
+
+[DataLoader] Created data loaders:
+  - Training set (from train/, 80.0%): 404 samples
+  - Validation set (from train/, 20.0%): 101 samples
+  - Test set (test/): 275 samples
+  - Test set is NOT used in training (data leakage prevention)
+  - Mask images (containing '_mask') are automatically filtered out
+
+Final number of classes: 3
+Final class list: ['benign', 'malignant', 'normal']
+
+=============== Creating Model ===============
+Backbone type: RESNET50
+Backbone feature dimension: 2048 (ResNet50)
+[Model] Building RESNET50 backbone...
+[Model] Loading ResNet50 weights: <PRETRAINED_WEIGHT>
+[Model] Warning: Missing keys when loading weights: ['fc.weight', 'fc.bias']...
+[Model] ResNet50 weights loaded successfully!
+[Model] ResNet50 backbone ready (feature dimension: 2048)
+Model created successfully!
+Total model parameters: 23,514,179
+
+=============== Starting Training ===============
+
+Epoch 1/100:
+  Train - Loss: 1.0531, ClsAcc: 45.54%
+  Val   - Loss: 0.9942, ClsAcc: 53.17%
+
+  Saved best model to: ./checkpoints_breast_3cls_resnet50_expC/best_model.pth (Val Acc: 53.17%)
+
+Epoch 2/100:
+  Train - Loss: 0.8719, ClsAcc: 61.67%
+  Val   - Loss: 0.8765, ClsAcc: 53.17%
+
+Epoch 3/100:
+  Train - Loss: 0.7360, ClsAcc: 65.44%
+  Val   - Loss: 0.7450, ClsAcc: 58.17%
+
+  Saved best model to: ./checkpoints_breast_3cls_resnet50_expC/best_model.pth (Val Acc: 58.17%)
+
+Epoch 4/100:
+  Train - Loss: 0.6133, ClsAcc: 72.75%
+  Val   - Loss: 0.6502, ClsAcc: 67.17%
+
+  Saved best model to: ./checkpoints_breast_3cls_resnet50_expC/best_model.pth (Val Acc: 67.17%)
+
+Epoch 5/100:
+  Train - Loss: 0.5493, ClsAcc: 77.11%
+  Val   - Loss: 0.7090, ClsAcc: 68.00%
+
+  Saved best model to: ./checkpoints_breast_3cls_resnet50_expC/best_model.pth (Val Acc: 68.00%)
+
+Epoch 6/100:
+  Train - Loss: 0.4748, ClsAcc: 80.64%
+  Val   - Loss: 0.6387, ClsAcc: 69.67%
+
+  Saved best model to: ./checkpoints_breast_3cls_resnet50_expC/best_model.pth (Val Acc: 69.67%)
+
+Epoch 7/100:
+  Train - Loss: 0.4043, ClsAcc: 87.01%
+  Val   - Loss: 0.6701, ClsAcc: 73.67%
+
+  Saved best model to: ./checkpoints_breast_3cls_resnet50_expC/best_model.pth (Val Acc: 73.67%)
+
+Epoch 8/100:
+  Train - Loss: 0.3463, ClsAcc: 87.84%
+  Val   - Loss: 0.7095, ClsAcc: 74.50%
+
+  Saved best model to: ./checkpoints_breast_3cls_resnet50_expC/best_model.pth (Val Acc: 74.50%)
+
+Epoch 9/100:
+  Train - Loss: 0.2561, ClsAcc: 92.35%
+  Val   - Loss: 0.5987, ClsAcc: 79.50%
+
+  Saved best model to: ./checkpoints_breast_3cls_resnet50_expC/best_model.pth (Val Acc: 79.50%)
+
+Epoch 10/100:
+  Train - Loss: 0.2795, ClsAcc: 91.13%
+  Val   - Loss: 0.6112, ClsAcc: 78.67%
+
+Epoch 11/100:
+  Train - Loss: 0.2023, ClsAcc: 94.56%
+  Val   - Loss: 0.4888, ClsAcc: 80.33%
+
+  Saved best model to: ./checkpoints_breast_3cls_resnet50_expC/best_model.pth (Val Acc: 80.33%)
+
+Epoch 12/100:
+  Train - Loss: 0.2262, ClsAcc: 94.02%
+  Val   - Loss: 0.5479, ClsAcc: 78.67%
+
+Epoch 13/100:
+  Train - Loss: 0.1831, ClsAcc: 94.26%
+  Val   - Loss: 0.5854, ClsAcc: 77.83%
+
+Epoch 14/100:
+  Train - Loss: 0.1377, ClsAcc: 94.56%
+  Val   - Loss: 0.6658, ClsAcc: 77.83%
+
+Epoch 15/100:
+  Train - Loss: 0.1180, ClsAcc: 95.78%
+  Val   - Loss: 0.6359, ClsAcc: 79.50%
+
+Epoch 16/100:
+  Train - Loss: 0.1456, ClsAcc: 95.98%
+  Val   - Loss: 0.7367, ClsAcc: 76.17%
+
+Epoch 17/100:
+  Train - Loss: 0.1426, ClsAcc: 95.00%
+  Val   - Loss: 0.6229, ClsAcc: 74.50%
+
+Epoch 18/100:
+  Train - Loss: 0.1347, ClsAcc: 96.03%
+  Val   - Loss: 0.5621, ClsAcc: 81.83%
+
+  Saved best model to: ./checkpoints_breast_3cls_resnet50_expC/best_model.pth (Val Acc: 81.83%)
+
+Epoch 19/100:
+  Train - Loss: 0.1614, ClsAcc: 94.85%
+  Val   - Loss: 0.4873, ClsAcc: 77.83%
+
+Epoch 20/100:
+  Train - Loss: 0.1131, ClsAcc: 96.08%
+  Val   - Loss: 0.4991, ClsAcc: 77.83%
+
+Epoch 21/100:
+  Train - Loss: 0.0980, ClsAcc: 96.03%
+  Val   - Loss: 0.6605, ClsAcc: 76.17%
+
+Epoch 22/100:
+  Train - Loss: 0.0869, ClsAcc: 97.55%
+  Val   - Loss: 0.5509, ClsAcc: 83.50%
+
+  Saved best model to: ./checkpoints_breast_3cls_resnet50_expC/best_model.pth (Val Acc: 83.50%)
+
+Epoch 23/100:
+  Train - Loss: 0.0917, ClsAcc: 97.30%
+  Val   - Loss: 0.4997, ClsAcc: 82.67%
+
+Epoch 24/100:
+  Train - Loss: 0.0890, ClsAcc: 97.45%
+  Val   - Loss: 0.4771, ClsAcc: 83.50%
+
+Epoch 25/100:
+  Train - Loss: 0.1007, ClsAcc: 96.81%
+  Val   - Loss: 0.5637, ClsAcc: 79.50%
+
+Epoch 26/100:
+  Train - Loss: 0.1040, ClsAcc: 96.08%
+  Val   - Loss: 0.5538, ClsAcc: 82.67%
+
+Epoch 27/100:
+  Train - Loss: 0.0629, ClsAcc: 97.30%
+  Val   - Loss: 0.5877, ClsAcc: 84.33%
+
+  Saved best model to: ./checkpoints_breast_3cls_resnet50_expC/best_model.pth (Val Acc: 84.33%)
+
+Epoch 28/100:
+  Train - Loss: 0.0881, ClsAcc: 96.67%
+  Val   - Loss: 0.5397, ClsAcc: 81.00%
+
+Epoch 29/100:
+  Train - Loss: 0.0694, ClsAcc: 97.79%
+  Val   - Loss: 0.5175, ClsAcc: 82.67%
+
+Epoch 30/100:
+  Train - Loss: 0.1014, ClsAcc: 96.52%
+  Val   - Loss: 0.5573, ClsAcc: 77.83%
+
+Epoch 31/100:
+  Train - Loss: 0.0809, ClsAcc: 97.75%
+  Val   - Loss: 0.5088, ClsAcc: 83.50%
+
+Epoch 32/100:
+  Train - Loss: 0.1163, ClsAcc: 96.23%
+  Val   - Loss: 0.5821, ClsAcc: 83.50%
+
+Epoch 33/100:
+  Train - Loss: 0.1172, ClsAcc: 96.76%
+  Val   - Loss: 0.5069, ClsAcc: 82.67%
+
+Epoch 34/100:
+  Train - Loss: 0.1415, ClsAcc: 95.59%
+  Val   - Loss: 0.4838, ClsAcc: 82.67%
+
+Epoch 35/100:
+  Train - Loss: 0.0805, ClsAcc: 97.99%
+  Val   - Loss: 0.4562, ClsAcc: 83.50%
+
+Epoch 36/100:
+  Train - Loss: 0.0726, ClsAcc: 97.30%
+  Val   - Loss: 0.4118, ClsAcc: 85.17%
+
+  Saved best model to: ./checkpoints_breast_3cls_resnet50_expC/best_model.pth (Val Acc: 85.17%)
+
+Epoch 37/100:
+  Train - Loss: 0.0789, ClsAcc: 96.52%
+  Val   - Loss: 0.4506, ClsAcc: 85.17%
+
+Epoch 38/100:
+  Train - Loss: 0.0668, ClsAcc: 97.55%
+  Val   - Loss: 0.4209, ClsAcc: 85.17%
+
+Epoch 39/100:
+  Train - Loss: 0.0612, ClsAcc: 97.45%
+  Val   - Loss: 0.3987, ClsAcc: 86.00%
+
+  Saved best model to: ./checkpoints_breast_3cls_resnet50_expC/best_model.pth (Val Acc: 86.00%)
+
+Epoch 40/100:
+  Train - Loss: 0.0637, ClsAcc: 97.30%
+  Val   - Loss: 0.4371, ClsAcc: 85.17%
+
+Epoch 41/100:
+  Train - Loss: 0.0491, ClsAcc: 98.04%
+  Val   - Loss: 0.4344, ClsAcc: 85.17%
+
+Epoch 42/100:
+  Train - Loss: 0.0644, ClsAcc: 97.06%
+  Val   - Loss: 0.4500, ClsAcc: 85.17%
+
+Epoch 43/100:
+  Train - Loss: 0.0516, ClsAcc: 98.04%
+  Val   - Loss: 0.4649, ClsAcc: 85.17%
+
+Epoch 44/100:
+  Train - Loss: 0.0567, ClsAcc: 98.04%
+  Val   - Loss: 0.4773, ClsAcc: 86.00%
+
+Epoch 45/100:
+  Train - Loss: 0.0458, ClsAcc: 98.77%
+  Val   - Loss: 0.4992, ClsAcc: 86.00%
+
+Epoch 46/100:
+  Train - Loss: 0.0426, ClsAcc: 98.04%
+  Val   - Loss: 0.4902, ClsAcc: 85.17%
+
+Epoch 47/100:
+  Train - Loss: 0.0672, ClsAcc: 97.55%
+  Val   - Loss: 0.5284, ClsAcc: 84.33%
+
+Epoch 48/100:
+  Train - Loss: 0.0541, ClsAcc: 98.77%
+  Val   - Loss: 0.5555, ClsAcc: 84.33%
+
+Epoch 49/100:
+  Train - Loss: 0.0431, ClsAcc: 98.28%
+  Val   - Loss: 0.5355, ClsAcc: 85.17%
+
+Epoch 50/100:
+  Train - Loss: 0.0643, ClsAcc: 97.55%
+  Val   - Loss: 0.5477, ClsAcc: 84.33%
+
+Epoch 51/100:
+  Train - Loss: 0.0508, ClsAcc: 98.53%
+  Val   - Loss: 0.5587, ClsAcc: 84.33%
+
+Epoch 52/100:
+  Train - Loss: 0.0533, ClsAcc: 97.55%
+  Val   - Loss: 0.5220, ClsAcc: 84.33%
+
+Epoch 53/100:
+  Train - Loss: 0.0631, ClsAcc: 98.48%
+  Val   - Loss: 0.5942, ClsAcc: 83.50%
+
+Epoch 54/100:
+  Train - Loss: 0.0561, ClsAcc: 97.30%
+  Val   - Loss: 0.5813, ClsAcc: 83.50%
+
+Epoch 55/100:
+  Train - Loss: 0.0419, ClsAcc: 98.77%
+  Val   - Loss: 0.5776, ClsAcc: 83.50%
+
+Epoch 56/100:
+  Train - Loss: 0.0551, ClsAcc: 98.48%
+  Val   - Loss: 0.6597, ClsAcc: 84.33%
+
+Epoch 57/100:
+  Train - Loss: 0.0450, ClsAcc: 97.79%
+  Val   - Loss: 0.6161, ClsAcc: 84.33%
+
+Epoch 58/100:
+  Train - Loss: 0.0781, ClsAcc: 97.75%
+  Val   - Loss: 0.6490, ClsAcc: 84.33%
+
+Epoch 59/100:
+  Train - Loss: 0.0593, ClsAcc: 97.01%
+  Val   - Loss: 0.6936, ClsAcc: 84.33%
+
+Epoch 60/100:
+  Train - Loss: 0.0713, ClsAcc: 97.01%
+  Val   - Loss: 0.7032, ClsAcc: 82.67%
+
+Epoch 61/100:
+  Train - Loss: 0.0662, ClsAcc: 97.99%
+  Val   - Loss: 0.5225, ClsAcc: 83.50%
+
+Epoch 62/100:
+  Train - Loss: 0.0493, ClsAcc: 97.99%
+  Val   - Loss: 0.5153, ClsAcc: 84.33%
+
+Epoch 63/100:
+  Train - Loss: 0.0566, ClsAcc: 97.79%
+  Val   - Loss: 0.5478, ClsAcc: 86.00%
+
+Epoch 64/100:
+  Train - Loss: 0.0545, ClsAcc: 98.28%
+  Val   - Loss: 0.6111, ClsAcc: 84.33%
+
+Epoch 65/100:
+  Train - Loss: 0.0902, ClsAcc: 96.76%
+  Val   - Loss: 0.6165, ClsAcc: 84.33%
+
+Epoch 66/100:
+  Train - Loss: 0.0552, ClsAcc: 97.75%
+  Val   - Loss: 0.5695, ClsAcc: 84.33%
+
+Epoch 67/100:
+  Train - Loss: 0.0639, ClsAcc: 97.30%
+  Val   - Loss: 0.4781, ClsAcc: 84.33%
+
+Epoch 68/100:
+  Train - Loss: 0.0407, ClsAcc: 98.53%
+  Val   - Loss: 0.4804, ClsAcc: 82.67%
+
+Epoch 69/100:
+  Train - Loss: 0.0596, ClsAcc: 98.04%
+  Val   - Loss: 0.4986, ClsAcc: 84.33%
+
+Epoch 70/100:
+  Train - Loss: 0.0572, ClsAcc: 97.30%
+  Val   - Loss: 0.5166, ClsAcc: 84.33%
+
+Epoch 71/100:
+  Train - Loss: 0.0454, ClsAcc: 98.77%
+  Val   - Loss: 0.5862, ClsAcc: 85.17%
+
+Epoch 72/100:
+  Train - Loss: 0.0479, ClsAcc: 97.79%
+  Val   - Loss: 0.6112, ClsAcc: 85.17%
+
+Epoch 73/100:
+  Train - Loss: 0.0527, ClsAcc: 98.04%
+  Val   - Loss: 0.4701, ClsAcc: 84.33%
+
+Epoch 74/100:
+  Train - Loss: 0.0442, ClsAcc: 98.28%
+  Val   - Loss: 0.4767, ClsAcc: 85.17%
+
+Epoch 75/100:
+  Train - Loss: 0.0383, ClsAcc: 97.79%
+  Val   - Loss: 0.4937, ClsAcc: 84.33%
+
+Epoch 76/100:
+  Train - Loss: 0.0551, ClsAcc: 97.50%
+  Val   - Loss: 0.5082, ClsAcc: 83.50%
+
+Epoch 77/100:
+  Train - Loss: 0.0546, ClsAcc: 98.53%
+  Val   - Loss: 0.5114, ClsAcc: 83.50%
+
+Epoch 78/100:
+  Train - Loss: 0.0563, ClsAcc: 98.24%
+  Val   - Loss: 0.4770, ClsAcc: 83.50%
+
+Epoch 79/100:
+  Train - Loss: 0.0356, ClsAcc: 98.24%
+  Val   - Loss: 0.5019, ClsAcc: 83.50%
+
+Epoch 80/100:
+  Train - Loss: 0.0585, ClsAcc: 98.28%
+  Val   - Loss: 0.5198, ClsAcc: 83.50%
+
+Epoch 81/100:
+  Train - Loss: 0.0508, ClsAcc: 98.24%
+  Val   - Loss: 0.4591, ClsAcc: 83.50%
+
+Epoch 82/100:
+  Train - Loss: 0.0337, ClsAcc: 98.53%
+  Val   - Loss: 0.4547, ClsAcc: 88.33%
+
+  Saved best model to: ./checkpoints_breast_3cls_resnet50_expC/best_model.pth (Val Acc: 88.33%)
+
+Epoch 83/100:
+  Train - Loss: 0.0486, ClsAcc: 98.77%
+  Val   - Loss: 0.4638, ClsAcc: 87.50%
+
+Epoch 84/100:
+  Train - Loss: 0.0431, ClsAcc: 97.79%
+  Val   - Loss: 0.4624, ClsAcc: 87.50%
+
+Epoch 85/100:
+  Train - Loss: 0.0522, ClsAcc: 98.77%
+  Val   - Loss: 0.4524, ClsAcc: 88.33%
+
+Epoch 86/100:
+  Train - Loss: 0.0549, ClsAcc: 97.99%
+  Val   - Loss: 0.4362, ClsAcc: 88.33%
+
+Epoch 87/100:
+  Train - Loss: 0.0396, ClsAcc: 99.02%
+  Val   - Loss: 0.4336, ClsAcc: 89.17%
+
+  Saved best model to: ./checkpoints_breast_3cls_resnet50_expC/best_model.pth (Val Acc: 89.17%)
+
+Epoch 88/100:
+  Train - Loss: 0.0401, ClsAcc: 99.26%
+  Val   - Loss: 0.4425, ClsAcc: 89.17%
+
+Epoch 89/100:
+  Train - Loss: 0.0438, ClsAcc: 98.68%
+  Val   - Loss: 0.4530, ClsAcc: 89.17%
+
+Epoch 90/100:
+  Train - Loss: 0.0437, ClsAcc: 98.77%
+  Val   - Loss: 0.4804, ClsAcc: 89.17%
+
+Epoch 91/100:
+  Train - Loss: 0.0542, ClsAcc: 97.30%
+  Val   - Loss: 0.4796, ClsAcc: 89.17%
+
+Epoch 92/100:
+  Train - Loss: 0.0428, ClsAcc: 97.79%
+  Val   - Loss: 0.4537, ClsAcc: 89.17%
+
+Epoch 93/100:
+  Train - Loss: 0.0411, ClsAcc: 98.43%
+  Val   - Loss: 0.4874, ClsAcc: 88.33%
+
+Epoch 94/100:
+  Train - Loss: 0.0422, ClsAcc: 98.24%
+  Val   - Loss: 0.4331, ClsAcc: 89.17%
+
+Epoch 95/100:
+  Train - Loss: 0.0518, ClsAcc: 97.94%
+  Val   - Loss: 0.4636, ClsAcc: 88.33%
+
+Epoch 96/100:
+  Train - Loss: 0.0441, ClsAcc: 97.65%
+  Val   - Loss: 0.5004, ClsAcc: 82.67%
+
+Epoch 97/100:
+  Train - Loss: 0.0554, ClsAcc: 97.79%
+  Val   - Loss: 0.4960, ClsAcc: 83.50%
+
+Epoch 98/100:
+  Train - Loss: 0.0535, ClsAcc: 97.55%
+  Val   - Loss: 0.5061, ClsAcc: 82.67%
+
+Epoch 99/100:
+  Train - Loss: 0.0355, ClsAcc: 99.22%
+  Val   - Loss: 0.4707, ClsAcc: 84.33%
+
+Epoch 100/100:
+  Train - Loss: 0.0652, ClsAcc: 97.75%
+  Val   - Loss: 0.4781, ClsAcc: 84.33%
+
+
+Training completed! Best validation accuracy: 89.17%
+
+=============== Final Testing ===============
+Loaded best model: ./checkpoints_breast_3cls_resnet50_expC/best_model.pth (Epoch 87, Val Acc: 89.17%)
+
+=============== Test Results ===============
+Overall accuracy:
+  ClsAcc:  81.50%
+
+Per-class accuracy (Direct classification):
+  benign: 96.32%
+  malignant: 79.52%
+  normal: 58.93%
+
+Classification Report (Direct predictions):
+              precision    recall  f1-score   support
+
+           0     0.7892    0.9632    0.8675       136
+           1     0.9041    0.7952    0.8462        83
+           2     0.9167    0.5893    0.7174        56
+
+    accuracy                         0.8364       275
+   macro avg     0.8700    0.7826    0.8104       275
+weighted avg     0.8498    0.8364    0.8305       275
+
+
+Confusion Matrix (Direct predictions):
+Rows=true class, Columns=predicted class
+Class order: ['benign', 'malignant', 'normal']
+[[131   3   2]
+ [ 16  66   1]
+ [ 19   4  33]]
+
+==========================================
+Training completed!
+End time: Mon Feb 02 12:13:27 PM  2026
+==========================================
+[INFO] Wandb run finished.
+ExpC completed!
+
