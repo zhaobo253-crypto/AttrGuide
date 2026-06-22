@@ -117,7 +117,6 @@ The environment uses PyTorch, TorchVision, scikit-learn, pandas, OpenAI CLIP, an
 Download the public BUSI dataset from its official source or a community mirror:
 
 - Official BUSI dataset page: <https://scholar.cu.edu.eg/?q=afahmy/pages/dataset>
-- Kaggle mirror: <https://www.kaggle.com/datasets/aryashah2k/breast-ultrasound-images-dataset>
 
 Arrange the dataset as follows:
 
