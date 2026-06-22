@@ -23,7 +23,10 @@
 </p>
 
 <p align="center">
-  Bo Zhao, Yapeng Li, Juhua Liu, Bo Du<br>
+  <a href="https://scholar.google.com/citations?view_op=search_authors&mauthors=Bo+Zhao+Wuhan+University+ultrasound">Bo Zhao</a>,
+  <a href="https://scholar.google.com/citations?view_op=search_authors&mauthors=Yapeng+Li+Wuhan+University">Yapeng Li</a>,
+  <a href="https://scholar.google.com/citations?view_op=search_authors&mauthors=Juhua+Liu+Wuhan+University">Juhua Liu</a>,
+  <a href="https://scholar.google.com/citations?view_op=search_authors&mauthors=Bo+Du+Wuhan+University">Bo Du</a><br>
   Wuhan University, Wuhan, China
 </p>
 
@@ -217,11 +220,19 @@ python train_baseline.py \
 AttrGuide consistently improves ultrasound classification across backbone families, recent methods, and disease categories.
 
 <p align="center">
-  <img src="assets/readme/main-results.png" alt="AttrGuide main results" width="72%">
+  <img src="assets/readme/busi-encoders.png" alt="BUSI encoder comparison" width="58%">
 </p>
 
 <p align="center">
-  <sub><em><strong>Main comparison.</strong> Adding attribute guidance improves BUSI breast ultrasound classification with both CNN and Transformer backbones.</em></sub>
+  <sub><em><strong>BUSI comparison.</strong> AttrGuide achieves the best BUSI test accuracy among the compared encoders and BU-Mamba baseline reported in the paper.</em></sub>
+</p>
+
+<p align="center">
+  <img src="assets/readme/main-results.png" alt="AttrGuide cross-task main results" width="72%">
+</p>
+
+<p align="center">
+  <sub><em><strong>Cross-task gains.</strong> Adding attribute guidance improves both BUSI breast ultrasound classification and fetal ultrasound plane classification.</em></sub>
 </p>
 
 ### BUSI Main Comparison
@@ -258,6 +269,14 @@ Private fetal and thyroid datasets are not included in this repository. The publ
 
 <p align="center">
   <sub><em><strong>Ablation.</strong> The full model with the attribute branch and learnable fusion gives the strongest performance.</em></sub>
+</p>
+
+<p align="center">
+  <img src="assets/readme/multitask-results.png" alt="BUSI multi-task results" width="54%">
+</p>
+
+<p align="center">
+  <sub><em><strong>Multi-task setting.</strong> Results on the joint BUSI segmentation-classification framework used in the paper.</em></sub>
 </p>
 
 <p align="center">
