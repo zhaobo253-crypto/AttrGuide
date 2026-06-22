@@ -1,8 +1,8 @@
-# AttrGuide: Boosting Ultrasound Image Classification via Attribute-Guided Dual-Branch Framework
+# Boosting Ultrasound Image Classification via Attribute-Guided Dual-Branch Framework
 
 <p align="center">
   <a href="#citation">
-    <img src="https://img.shields.io/badge/Paper-MICCAI--2026-red" alt="AttrGuide MICCAI 2026 paper">
+    <img src="https://img.shields.io/badge/Paper-MICCAI--2026%20Submission-red" alt="AttrGuide paper">
   </a>
   <a href="https://github.com/zhaobo253-crypto/AttrGuide">
     <img src="https://img.shields.io/badge/Code-GitHub-000000?logo=github" alt="Code">
@@ -19,7 +19,12 @@
 </p>
 
 <p align="center">
-  <b>MICCAI 2026</b>
+  <b>MICCAI 2026 Submission</b>
+</p>
+
+<p align="center">
+  Bo Zhao, Yapeng Li, Juhua Liu, Bo Du<br>
+  Wuhan University, Wuhan, China
 </p>
 
 <p align="center">
@@ -45,7 +50,7 @@ Ultrasound image classification is essential for computer-aided diagnosis, but u
 
 **AttrGuide** is a plug-and-play attribute-guided dual-branch framework for ultrasound classification. It keeps the original image classifier as a baseline branch, injects domain-agnostic medical attributes through an additional semantic branch, and adaptively fuses the two predictions. The goal is to improve both classification performance and interpretability without requiring dense pixel-level attribute annotations.
 
-This repository provides the public implementation for BUSI breast ultrasound classification with ResNet50 and ViT-B backbones, including baseline trainers, AttrGuide trainers, attribute embedding generation, example attribute tables, and release notes for large files. Private fetal and thyroid ultrasound datasets used in the paper are not redistributed.
+This repository provides the public implementation for BUSI breast ultrasound classification with ResNet50 and ViT-B backbones, including baseline trainers, AttrGuide trainers, attribute embedding generation, example attribute tables, and release notes for large files. Private fetal and thyroid ultrasound datasets described in the paper are not redistributed.
 
 ## Motivation
 
@@ -80,7 +85,7 @@ The framework contains three main components:
 - We propose a plug-and-play medical-prior module for ultrasound image classification.
 - We inject domain-agnostic clinical attributes into existing visual classifiers without requiring dense attribute annotation.
 - We use an adaptive dual-branch decision module to combine global visual evidence and attribute-based semantic evidence.
-- We validate that AttrGuide improves multiple backbones and ultrasound tasks with low additional training cost.
+- Extensive experiments on diverse real-world datasets demonstrate that AttrGuide can be integrated into multiple SOTA backbones, consistently improving performance and interpretability with negligible computational overhead.
 
 ## Quick Start
 
@@ -243,7 +248,7 @@ AttrGuide consistently improves ultrasound classification across backbone famili
 | Fetal ultrasound | 92.8 | **94.9** | +2.1 |
 | Thyroid ultrasound | 82.4 | **86.1** | +3.8 |
 
-Private fetal and thyroid datasets are not included in this repository. The public release focuses on the BUSI protocol and documents the private-data results reported in the paper.
+Private fetal and thyroid datasets are not included in this repository. The public release focuses on the BUSI protocol and documents aggregate private-data results reported in the paper.
 
 ## Additional Analysis
 
@@ -307,11 +312,11 @@ Private clinical datasets are not redistributed. If visualization examples from 
 If this repository is useful for your research, please cite:
 
 ```bibtex
-@inproceedings{zhao2026attrguide,
+@misc{zhao2026attrguide,
   title     = {Boosting Ultrasound Image Classification via Attribute-Guided Dual-Branch Framework},
   author    = {Zhao, Bo and Li, Yapeng and Liu, Juhua and Du, Bo},
-  booktitle = {Medical Image Computing and Computer Assisted Intervention -- MICCAI},
-  year      = {2026}
+  year      = {2026},
+  note      = {MICCAI 2026 submission}
 }
 ```
 
