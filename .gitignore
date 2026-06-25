@@ -36,3 +36,7 @@ Thumbs.db
 .idea/
 .vscode/
 
+# Reviewer-response reproducibility artifacts.
+!rebuttal_q4/
+!rebuttal_q4/**
+

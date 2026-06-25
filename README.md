@@ -363,6 +363,7 @@ AttrGuide/
 |   `-- slurm/                  # Cluster job examples
 |-- assets/readme/              # README figures
 |-- examples/                   # Public attribute table template
+|-- rebuttal_q4/                # Public Q4 qualitative analysis and reproducibility artifacts
 |-- visualizations/             # Optional anonymized CAM/attribute examples
 |-- results/public_logs/        # Sanitized public training logs
 |-- data/                       # User-prepared datasets and generated embeddings
@@ -388,6 +389,8 @@ optimizer: Adam
 ```
 
 Large files should be released separately through GitHub Releases, Zenodo, Hugging Face, or an institutional file service. See [MODEL_ZOO.md](MODEL_ZOO.md) for expected local paths and release checklist.
+
+Reviewer-response materials for interpretability, qualitative cases, and reproducibility are provided in [`rebuttal_q4/`](rebuttal_q4/). The BUSI breast test CSV reports visual-, attribute-, and fusion-branch predictions plus top-5 attributes per sample. The released checkpoint files are available at <https://huggingface.co/chameleon111/AttrGuide/tree/main/checkpoints>.
 
 Private clinical datasets are not redistributed. If visualization examples from private data are released, remove patient names, dates, hospital identifiers, accession numbers, and other protected information.
 

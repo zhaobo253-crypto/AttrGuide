@@ -23,6 +23,7 @@ data/
 
 - ResNet50 ImageNet weights: TorchVision model zoo.
 - ViT-B/16 ImageNet weights: TorchVision model zoo.
+- AttrGuide released checkpoints: <https://huggingface.co/chameleon111/AttrGuide/tree/main/checkpoints>
 - BUSI dataset: <https://scholar.cu.edu.eg/?q=afahmy/pages/dataset>
 - DDTI thyroid ultrasound dataset: <https://www.kaggle.com/datasets/dasmehdixtr/ddti-thyroid-ultrasound-images?resource=download>
 
@@ -46,16 +47,16 @@ Update this table after uploading the files.
 | --- | --- | --- |
 | `resnet50-11ad3fa6.pth` | ImageNet-pretrained ResNet50 backbone | TBD |
 | `vit_b_16-c867db91.pth` | ImageNet-pretrained ViT-B/16 backbone | TBD |
-| `attribute_embeddings_3cls_breast.pt` | CLIP-encoded BUSI breast attribute embeddings | TBD |
+| `attribute_embeddings_3cls_breast.pt` | CLIP-encoded BUSI breast attribute embeddings | `rebuttal_q4/breast/attribute_embeddings_3cls_breast.pt` |
 | `attribute_embeddings_2cls_thyroid.pt` | CLIP-encoded DDTI thyroid attribute embeddings | TBD |
-| `resnet50_attrguide_best.pth` | Trained BUSI ResNet50+AttrGuide checkpoint | TBD |
-| `vitbase_attrguide_best.pth` | Trained BUSI ViT-B+AttrGuide checkpoint | TBD |
+| `resnet50_attrguide_best.pth` | Trained BUSI ResNet50+AttrGuide checkpoint | <https://huggingface.co/chameleon111/AttrGuide/tree/main/checkpoints> |
+| `vitbase_attrguide_best.pth` | Trained BUSI ViT-B+AttrGuide checkpoint | <https://huggingface.co/chameleon111/AttrGuide/tree/main/checkpoints> |
 
 Current release status:
 
 | Dataset | Logs | Checkpoints |
 | --- | --- | --- |
-| BUSI breast | Sanitized logs in `results/public_logs/breast/` | Available locally; release separately because files are large |
+| BUSI breast | Sanitized logs in `results/public_logs/breast/`; Q4 qualitative CSV in `rebuttal_q4/breast/` | Released through Hugging Face checkpoints link above |
 | DDTI thyroid | Sanitized logs in `results/public_logs/thyroid/` | Not included; logs only |
 | Private fetal ultrasound | Not included | Not included |
 
