@@ -1,0 +1,5 @@
+python: 3.8.17 (default, Jul  5 2023, 21:04:15) 
+[GCC 11.2.0]
+torch: 1.12.0
+cuda available: False
+torch cuda: 11.3
